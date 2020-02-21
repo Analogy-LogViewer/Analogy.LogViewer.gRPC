@@ -1,0 +1,34 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "Analogy.LogViewer.gRPC";
+
+package greet;
+
+// The greeting service definition.
+service Analogy {
+  // Sends a greeting
+  rpc SendMessage (AnalogyMessageRequest) returns (AnalogyMessageReply);
+}
+
+// The request message containing the user's name.
+message AnalogyMessageRequest {
+  string ID = 1;
+  google.protobuf.Timestamp Date = 2;
+  string Text =3;
+  string Category =4;
+  string Source =5;
+  string MethodName =6;
+  string FileName =7;
+  int32 LineNumber =8;
+  string Class=9;
+  string Level=10;
+  string Module =11;
+  int32 ProcessID =12;
+  int32 Thread =13;
+  string User =14;
+}
+
+// The response message containing the greetings.
+message AnalogyMessageReply {
+  string message = 1;
+}

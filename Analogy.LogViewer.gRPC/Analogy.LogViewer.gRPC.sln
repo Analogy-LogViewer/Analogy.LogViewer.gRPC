@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analogy.LogViewer.gRPC", "Analogy.LogViewer.gRPC.csproj", "{F7345421-6538-4A89-B34B-BEB2863849EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analogy.LogViewer.gRPCClient", "..\Analogy.LogViewer.gRPCClient\Analogy.LogViewer.gRPCClient.csproj", "{16678856-AFAE-4F3A-BA25-C222E63C2E58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F7345421-6538-4A89-B34B-BEB2863849EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7345421-6538-4A89-B34B-BEB2863849EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7345421-6538-4A89-B34B-BEB2863849EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16678856-AFAE-4F3A-BA25-C222E63C2E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16678856-AFAE-4F3A-BA25-C222E63C2E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16678856-AFAE-4F3A-BA25-C222E63C2E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16678856-AFAE-4F3A-BA25-C222E63C2E58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
