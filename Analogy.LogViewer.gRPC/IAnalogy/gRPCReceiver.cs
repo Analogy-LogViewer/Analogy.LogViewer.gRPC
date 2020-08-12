@@ -33,7 +33,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         public Task InitializeDataProviderAsync(IAnalogyLogger logger)
         {
             LogManager.Instance.SetLogger(logger);
-
+            cts = new CancellationTokenSource();
             return Task.CompletedTask;
 
         }
@@ -44,14 +44,17 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         {
             //nop
         }
+        void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
         public void StartReceiving()
         {
             hoster = Hoster.CreateHostBuilder().Build();
+            gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
             hostingTask = hoster.StartAsync(cts.Token);
         }
 
         public void StopReceiving()
         {
+            gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
             cts.Cancel();
             OnDisconnected?.Invoke(this,
                 new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));

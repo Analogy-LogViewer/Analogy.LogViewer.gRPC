@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Analogy.Interfaces;
+using Analogy.LogViewer.gRPC.IAnalogy;
+
+namespace Analogy.LogViewer.gRPC
+{
+    public class gRPCReporter
+    {
+        private static Lazy<gRPCReporter> _instance = new Lazy<gRPCReporter>(() => new gRPCReporter());
+
+        public static gRPCReporter Instance { get; } = _instance.Value;
+
+        public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
+        public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
+        public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
+
+        public void MessageReady(Interfaces.AnalogyLogMessage m) => OnMessageReady?.Invoke(this, new AnalogyLogMessageArgs(m, Environment.MachineName, "", gRPCFactory.Id));
+
+    }
+}

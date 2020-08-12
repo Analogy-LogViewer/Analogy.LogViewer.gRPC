@@ -32,7 +32,7 @@ namespace Analogy.LogViewer.gRPCClient
                     Text = "Test Message (Init)",
                     Category = "",
                     Class = AnalogyLogClass.General.ToString(),
-                    Date = Timestamp.FromDateTime(DateTime.Now),
+                    Date = Timestamp.FromDateTime(DateTime.UtcNow),
                     FileName = "",
                     Id = Guid.NewGuid().ToString(),
                     Level = AnalogyLogLevel.Event.ToString(),
