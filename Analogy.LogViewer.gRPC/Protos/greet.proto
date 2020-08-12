@@ -7,12 +7,12 @@ package greet;
 // The greeting service definition.
 service Analogy {
   // Sends a greeting
-  rpc SendMessage (AnalogyMessageRequest) returns (AnalogyMessageReply);
+  rpc SendMessage (AnalogyLogMessage) returns (AnalogyMessageReply);
 }
 
 // The request message containing the user's name.
-message AnalogyMessageRequest {
-  string ID = 1;
+message AnalogyLogMessage {
+  string Id = 1;
   google.protobuf.Timestamp Date = 2;
   string Text =3;
   string Category =4;
@@ -21,11 +21,12 @@ message AnalogyMessageRequest {
   string FileName =7;
   int32 LineNumber =8;
   string Class=9;
-  string Level=10;
-  string Module =11;
-  int32 ProcessID =12;
-  int32 Thread =13;
-  string User =14;
+  string MachineName=10;
+  string Level=11;
+  string Module =12;
+  int32 ProcessId =13;
+  int32 ThreadId =14;
+  string User =15;
 }
 
 // The response message containing the greetings.

@@ -14,6 +14,8 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
 		<Version>1.0.0.2</Version>
+		<Authors>Lior Banai</Authors>
+		<Company>Analogy.LogViewer</Company>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -21,6 +23,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Analogy.DataProviders.Extensions" Version="1.1.7.4" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.3.2.6" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.30.0" />
 		<PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
 	</ItemGroup>
