@@ -16,7 +16,6 @@
 		<Version>1.0.0.2</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
-		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -28,6 +27,10 @@
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.3.2.6" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.30.0" />
 		<PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Managers\" />
 	</ItemGroup>
 
 </Project>
