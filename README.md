@@ -1,4 +1,4 @@
-# Analogy gRPC Receiver    <img src="./Assets/logo.png" align="right" width="155px" height="155px">
+# Analogy gRPC Receiver    <img src="./Assets/Analogy.gRPC2.png" align="right" width="155px" height="155px">
 
 <p align="center">
     
