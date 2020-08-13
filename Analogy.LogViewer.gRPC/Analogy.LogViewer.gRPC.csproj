@@ -13,10 +13,12 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.0.0.4</Version>
+		<Version>1.0.1</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
+		<PackageIcon>Analogy.gRPC2.png</PackageIcon>
+		<Description>gRPC Real Time Receiver  for Analogy Log Viewer</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -31,6 +33,28 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.7" />
 		<PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\Assets\Analogy.gRPC2.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
