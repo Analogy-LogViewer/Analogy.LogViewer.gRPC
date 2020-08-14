@@ -16,7 +16,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         private IHost hoster;
         private Task hostingTask;
         public string OptionalTitle { get; }
-        public Guid ID { get; }
+        public Guid ID { get; }=new Guid("F475166B-5BBA-40E4-B8A2-4F9E8C40C761");
         public bool IsConnected => true;
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
