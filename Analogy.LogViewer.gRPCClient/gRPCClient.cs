@@ -20,7 +20,7 @@ namespace Analogy.LogViewer.gRPCClient
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> streamToServer;
         public GRpcClient()
         {
-            channel = GrpcChannel.ForAddress("https://localhost:5001");
+            channel = GrpcChannel.ForAddress("http://localhost:5001");
         }
 
         public async Task<bool> InitClientAndSendTestMessage()

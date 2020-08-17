@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Lior Banai</Authors>
     <Company>Analogy.LogViewer</Company>
