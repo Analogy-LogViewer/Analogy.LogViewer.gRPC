@@ -7,7 +7,7 @@ package greet;
 // The greeting service definition.
 service Analogy {
   // Sends a greeting
-  rpc SendMessage (AnalogyLogMessage) returns (AnalogyMessageReply);
+  rpc Subscribe (stream AnalogyLogMessage) returns (AnalogyMessageReply);
 }
 
 // The request message containing the user's name.

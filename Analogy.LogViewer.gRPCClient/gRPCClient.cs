@@ -3,7 +3,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
+using Analogy.LogViewer.gRPC;
 using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using Grpc.Net.Client;
 using AnalogyLogMessage = Analogy.LogViewer.gRPC.AnalogyLogMessage;
 
@@ -15,6 +17,7 @@ namespace Analogy.LogViewer.gRPCClient
         private GrpcChannel channel;
         private static string _currentProcessName = Process.GetCurrentProcess().ProcessName;
         private static int _currentProcessId = Process.GetCurrentProcess().Id;
+        private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> streamToServer;
         public GRpcClient()
         {
             channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -27,6 +30,8 @@ namespace Analogy.LogViewer.gRPCClient
 
                 // The port number(5001) must match the port of the gRPC server.
                 client = new gRPC.Analogy.AnalogyClient(channel);
+                streamToServer = client.Subscribe();
+
                 var m = new AnalogyLogMessage
                 {
                     Text = "Test Message (Init)",
@@ -45,7 +50,7 @@ namespace Analogy.LogViewer.gRPCClient
                     Source = "None",
                     User = Environment.UserName
                 };
-                await client.SendMessageAsync(m);
+                await streamToServer.RequestStream.WriteAsync(m);
 
             }
             catch (Exception e)
