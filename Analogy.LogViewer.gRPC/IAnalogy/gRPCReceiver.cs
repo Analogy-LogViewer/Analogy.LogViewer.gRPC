@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.Managers;
+using Grpc.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
@@ -59,6 +60,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             OnDisconnected?.Invoke(this,
                 new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
             cts = new CancellationTokenSource();
+            GrpcEnvironment.KillServersAsync();
 
         }
     }
