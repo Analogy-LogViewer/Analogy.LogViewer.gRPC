@@ -10,17 +10,16 @@ using Microsoft.Extensions.Hosting;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCReceiver : IAnalogyRealTimeDataProvider
+    public class gRPCReceiverClient : IAnalogyRealTimeDataProvider
     {
         private static CancellationTokenSource cts;
-        private IHost hoster;
         private Task hostingTask;
-        public string OptionalTitle { get; } = "gRPC server";
-        public Guid ID { get; }=new Guid("F475166B-5BBA-40E4-B8A2-4F9E8C40C761");
+        public string OptionalTitle { get; } = "gRPC client Receiver";
+        public Guid ID { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
         public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
-
+        private AnalogyMessageConsumer consumer;
         public IAnalogyOfflineDataProvider FileOperationsHandler { get; } = null;
         public bool UseCustomColors { get; set; } = false;
         public IEnumerable<(string originalHeader, string replacementHeader)> GetReplacementHeaders()
@@ -46,9 +45,15 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
         public void StartReceiving()
         {
-            hoster = Hoster.CreateHostBuilder().Build();
-            gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
-            hostingTask = hoster.StartAsync(cts.Token);
+            consumer = new AnalogyMessageConsumer();
+            hostingTask = Task.Factory.StartNew(async () =>
+            {
+                await foreach (var message in consumer.GetMessages())
+                {
+                    OnMessageReady?.Invoke(this,
+                        new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, ID));
+                }
+            });
         }
 
         public void StopReceiving()
