@@ -13,7 +13,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.0.2</Version>
+		<Version>1.0.5</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -28,8 +28,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Analogy.DataProviders.Extensions" Version="1.1.7.4" />
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.3.2.6" />
-		<PackageReference Include="Grpc.AspNetCore" Version="2.30.0" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.3.4" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.31.0" />
+		<PackageReference Include="Grpc.Core" Version="2.31.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.7" />

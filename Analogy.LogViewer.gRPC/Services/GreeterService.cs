@@ -19,34 +19,53 @@ namespace Analogy.LogViewer.gRPC
             _logger = logger;
         }
 
-        public override Task<AnalogyMessageReply> SendMessage(AnalogyLogMessage message, ServerCallContext context)
+        public override async Task<AnalogyMessageReply> Subscribe(IAsyncStreamReader<AnalogyLogMessage> requestStream,
+            ServerCallContext context)
         {
-            Interfaces.AnalogyLogMessage m = new Interfaces.AnalogyLogMessage
+            try
             {
-                Text = message.Text,
-                ThreadId = message.ThreadId,
-                MachineName = message.MachineName,
-                Id = Guid.Parse(message.Id),
-                Category = message.Category,
-                Source = message.Source,
-                MethodName = message.MethodName,
-                FileName = message.FileName,
-                LineNumber = message.LineNumber,
-                Class = (AnalogyLogClass)Enum.Parse(typeof(AnalogyLogClass), message.Class),
-                Level = (AnalogyLogLevel)Enum.Parse(typeof(AnalogyLogLevel), message.Level),
-                Module = message.Module,
-                ProcessId = message.ProcessId,
-                Date = message.Date.ToDateTime(),
-                User = message.User,
-                AdditionalInformation = null
+                await foreach (var message in requestStream.ReadAllAsync(context.CancellationToken))
+                {
+                    try
+                    {
+                        Interfaces.AnalogyLogMessage m = new Interfaces.AnalogyLogMessage
+                        {
+                            Text = message.Text,
+                            ThreadId = message.ThreadId,
+                            MachineName = message.MachineName,
+                            Id = Guid.Parse(message.Id),
+                            Category = message.Category,
+                            Source = message.Source,
+                            MethodName = message.MethodName,
+                            FileName = message.FileName,
+                            LineNumber = message.LineNumber,
+                            Class = (AnalogyLogClass)Enum.Parse(typeof(AnalogyLogClass), message.Class),
+                            Level = (AnalogyLogLevel)Enum.Parse(typeof(AnalogyLogLevel), message.Level),
+                            Module = message.Module,
+                            ProcessId = message.ProcessId,
+                            Date = message.Date.ToDateTime(),
+                            User = message.User,
+                            AdditionalInformation = null
 
+                        };
+                        gRPCReporter.Instance.MessageReady(m);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e.ToString());
+                    }
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+            }
+            return new AnalogyMessageReply
+            {
+                Message = "Completed at " + DateTime.Now
             };
-            gRPCReporter.Instance.MessageReady(m);
-            return Task.FromResult(new AnalogyMessageReply
-            {
-                Message = "Received at " + DateTime.Now
-
-            });
         }
     }
 }
