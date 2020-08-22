@@ -32,16 +32,16 @@ namespace Analogy.LogServer.Tests
             btnProducer.Enabled = true;
         }
 
-        private async void btnConsumer_Click(object sender, EventArgs e)
+        private void btnConsumer_Click(object sender, EventArgs e)
         {
-            if (consuming) return;
-            consuming = true;
-            btnConsumer.Enabled = false;
-            var c = new AnalogyMessageConsumer("http://localhost:6000");
-            await foreach (var m in c.GetMessages().ConfigureAwait(false))
-                richTextBox1.Text += Environment.NewLine + m;
-            consuming = false;
-            btnConsumer.Enabled = true;
+            //if (consuming) return;
+            //consuming = true;
+            //btnConsumer.Enabled = false;
+            //var c = new AnalogyMessageConsumer("http://localhost:6000");
+            //await foreach (var m in c.GetMessages().ConfigureAwait(false))
+            //    richTextBox1.Text += Environment.NewLine + m;
+            //consuming = false;
+            //btnConsumer.Enabled = true;
         }
     }
 }
