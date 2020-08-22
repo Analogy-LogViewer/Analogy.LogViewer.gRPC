@@ -13,6 +13,10 @@
 		<ApplicationIcon>Analogy.gRPC.service.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageIcon>Analogy.gRPC.service.png</PackageIcon>
+		<IsPackable>true</IsPackable>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Version>0.2.0</Version>
 		<Copyright>Lior Banai @ 2020</Copyright>
 	</PropertyGroup>

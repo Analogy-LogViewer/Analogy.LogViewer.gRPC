@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Analogy.Interfaces;
+﻿using Analogy.Interfaces;
 using Analogy.LogServer;
 using Analogy.LogViewer.gRPC.Managers;
 using Grpc.Core;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
@@ -50,8 +49,16 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         {
             _hoster = Program.CreateHostBuilder().Build();
             gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
+            gRPCReporter.Instance.OnDisconnected += Instance_OnDisconnected;
             hostingTask = _hoster.StartAsync(_cts.Token);
             return Task.CompletedTask;
+        }
+
+        private void Instance_OnDisconnected(object sender, AnalogyDataSourceDisconnectedArgs e)
+        {
+
+            OnDisconnected?.Invoke(sender, e);
+            gRPCReporter.Instance.OnDisconnected -= Instance_OnDisconnected;
         }
 
         public Task StopReceiving()
