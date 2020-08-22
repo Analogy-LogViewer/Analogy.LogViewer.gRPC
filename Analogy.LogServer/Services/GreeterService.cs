@@ -1,8 +1,11 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Analogy.Interfaces;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Analogy.LogServer.Services
 {
@@ -40,6 +43,25 @@ namespace Analogy.LogServer.Services
         public override async Task SubscribeForConsumeMessages(AnalogyConsumerMessage request, IServerStreamWriter<AnalogyLogMessage> responseStream, ServerCallContext context)
         {
             MessageContainer.AddConsumer(request.Message, responseStream);
+            await responseStream.WriteAsync(new AnalogyLogMessage
+            {
+                Category = "Server Message",
+                Text = "Connection Established",
+                Class = AnalogyLogClass.General.ToString(),
+                Level = AnalogyLogLevel.AnalogyInformation.ToString(),
+                Date = Timestamp.FromDateTime(DateTime.UtcNow),
+                FileName = "",
+                Id = Guid.NewGuid().ToString(),
+                LineNumber = 0,
+                MachineName = Environment.MachineName,
+                MethodName = nameof(SubscribeForConsumeMessages),
+                Module = Process.GetCurrentProcess().ProcessName,
+                ProcessId = Process.GetCurrentProcess().Id,
+                Source = "Server Operations",
+                ThreadId = Thread.CurrentThread.ManagedThreadId,
+                User = Environment.UserName
+
+            });
             try
             {
                 await AwaitCancellation(context.CancellationToken);

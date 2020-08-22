@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Analogy.Interfaces;
+using Grpc.Core;
+using Grpc.Net.Client;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.Interfaces;
-using Analogy.LogServer;
-using Grpc.Core;
-using Grpc.Net.Client;
 using Enum = System.Enum;
 
 namespace Analogy.LogServer.Clients
@@ -15,7 +14,7 @@ namespace Analogy.LogServer.Clients
         private static Analogy.AnalogyClient client { get; set; }
         private readonly AsyncServerStreamingCall<AnalogyLogMessage> _stream;
         private CancellationTokenSource _cts;
-
+        private GrpcChannel channel;
         static AnalogyMessageConsumer()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -24,7 +23,7 @@ namespace Analogy.LogServer.Clients
         public AnalogyMessageConsumer(string address)
         {
             //using var channel = GrpcChannel.ForAddress("http://localhost:6000");
-            using var channel = GrpcChannel.ForAddress(address);
+            channel = GrpcChannel.ForAddress(address);
             client = new Analogy.AnalogyClient(channel);
             AnalogyConsumerMessage m = new AnalogyConsumerMessage { Message = "client" };
             _stream = client.SubscribeForConsumeMessages(m);
@@ -63,7 +62,8 @@ namespace Analogy.LogServer.Clients
         public Task Stop()
         {
             _cts?.Cancel();
-            return GrpcEnvironment.ShutdownChannelsAsync();
+            return channel.ShutdownAsync();
+
         }
     }
 }

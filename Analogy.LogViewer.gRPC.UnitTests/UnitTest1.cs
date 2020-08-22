@@ -16,15 +16,5 @@ namespace Analogy.LogViewer.gRPC.UnitTests
             gRPCFactory gf = new gRPCFactory();
             Assert.IsTrue(gf.FactoryId != Guid.Empty);
         }
-        [TestMethod]
-        public async Task TestClients()
-        {
-            var c = new AnalogyMessageProducer();
-            for (int i = 0; i < 100000; i++)
-            {
-                await c.Log("test " + i, "none", AnalogyLogLevel.Event);
-                await Task.Delay(500);
-            }
-        }
     }
 }
