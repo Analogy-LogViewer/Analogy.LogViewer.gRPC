@@ -12,7 +12,6 @@
 <a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/blob/master/LICENSE.md">
     <img src="https://img.shields.io/github/license/Analogy-LogViewer/Analogy.LogViewer.gRPC"  alt="License" />
 </a>
- [![Nuget](https://img.shields.io/nuget/v/Analogy.LogViewer.gRPC)](https://www.nuget.org/packages/Analogy.LogViewer.Serilog/)
 <a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/releases">
     <img src="https://img.shields.io/github/v/release/Analogy-LogViewer/Analogy.LogViewer.gRPC"  alt="Latest Release" />
 </a>
@@ -22,3 +21,10 @@
 </p>
 
 gRPC data provider for Analogy Log Viewer
+
+The following modules exists:
+| Nuget   |      Version      |  Description |
+|----------|:-------------:|------|
+| [Analogy.LogViewer.gRPC](https://www.nuget.org/packages/Analogy.LogViewer.gRPC/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogViewer.gRPC)](https://www.nuget.org/packages/Analogy.LogViewer.gRPC/) | Primary Analogy Log View grRPC providers |
+| [Analogy.LogServer](https://www.nuget.org/packages/Analogy.LogServer/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogServer)](https://www.nuget.org/packages/Analogy.LogServer/) | A windows Service for receiving logs |
+| [Analogy.LogServer.Clients](https://www.nuget.org/packages/Analogy.LogServer.Clients/) |   [![Nuget](https://www.nuget.org/packages/Analogy.LogServer.Clients)](https://img.shields.io/nuget/v/Analogy.LogServer.Clients) | gRPC client to pull back messages from Analogy Service |
