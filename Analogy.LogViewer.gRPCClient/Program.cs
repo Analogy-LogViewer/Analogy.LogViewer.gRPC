@@ -12,7 +12,7 @@ namespace Analogy.LogViewer.gRPCClient
         {
             GRpcClient client = new GRpcClient();
             await client.InitClientAndSendTestMessage();
-            GrpcEnvironment.ShutdownChannelsAsync();
+            await GrpcEnvironment.ShutdownChannelsAsync();
 
         }
     }

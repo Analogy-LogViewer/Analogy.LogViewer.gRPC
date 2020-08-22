@@ -18,7 +18,7 @@
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
 		<PackageIcon>Analogy.gRPC2.png</PackageIcon>
-		<Description>gRPC Real Time Receiver  for Analogy Log Viewer</Description>
+		<Description>gRPC Real Time Receiver  for Analogy Log Viewer (Self Hosted)</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
