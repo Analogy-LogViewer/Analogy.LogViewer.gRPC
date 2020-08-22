@@ -11,6 +11,6 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     {
         public Guid FactoryId { get; } = gRPCFactory.Id;
         public string Title { get; } = "gRPC Receivers";
-        public IEnumerable<IAnalogyDataProvider> DataProviders { get; } = new List<IAnalogyDataProvider> { new gRPCReceiver(),new gRPCReceiverClient() };
+        public IEnumerable<IAnalogyDataProvider> DataProviders { get; } = new List<IAnalogyDataProvider> { new gRPCReceiverClient() };
     }
 }

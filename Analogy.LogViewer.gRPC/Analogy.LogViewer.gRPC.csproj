@@ -27,7 +27,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="Analogy.DataProviders.Extensions" Version="1.1.7.4" />
-		<PackageReference Include="Analogy.LogServer" Version="0.2.0" />
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.2.0" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.4.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.31.0" />

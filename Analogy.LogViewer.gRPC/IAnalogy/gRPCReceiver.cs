@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCReceiver : IAnalogyRealTimeDataProvider
+    public class gRPCReceiver// : IAnalogyRealTimeDataProvider
     {
         private static CancellationTokenSource _cts;
         private IHost _hoster;
@@ -47,7 +47,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
         public Task StartReceiving()
         {
-            _hoster = Program.CreateHostBuilder().Build();
+            //_hoster = Program.CreateHostBuilder().Build();
             gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
             gRPCReporter.Instance.OnDisconnected += Instance_OnDisconnected;
             hostingTask = _hoster.StartAsync(_cts.Token);
