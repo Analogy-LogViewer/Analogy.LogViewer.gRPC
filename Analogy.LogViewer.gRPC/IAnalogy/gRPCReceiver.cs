@@ -13,8 +13,8 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
 {
     public class gRPCReceiver : IAnalogyRealTimeDataProvider
     {
-        private static CancellationTokenSource cts;
-        private IHost hoster;
+        private static CancellationTokenSource _cts;
+        private IHost _hoster;
         private Task hostingTask;
         public string OptionalTitle { get; } = "gRPC server";
         public Guid ID { get; }=new Guid("F475166B-5BBA-40E4-B8A2-4F9E8C40C761");
@@ -33,7 +33,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         public Task InitializeDataProviderAsync(IAnalogyLogger logger)
         {
             LogManager.Instance.SetLogger(logger);
-            cts = new CancellationTokenSource();
+            _cts = new CancellationTokenSource();
             return Task.CompletedTask;
 
         }
@@ -45,22 +45,22 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             //nop
         }
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
-        public void StartReceiving()
+        public Task StartReceiving()
         {
-            hoster = Hoster.CreateHostBuilder().Build();
+            _hoster = Hoster.CreateHostBuilder().Build();
             gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
-            hostingTask = hoster.StartAsync(cts.Token);
+            hostingTask = _hoster.StartAsync(_cts.Token);
+            return Task.CompletedTask;
         }
 
-        public void StopReceiving()
+        public Task StopReceiving()
         {
             gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
-            cts.Cancel();
+            _cts.Cancel();
             OnDisconnected?.Invoke(this,
                 new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
-            cts = new CancellationTokenSource();
-            GrpcEnvironment.KillServersAsync();
-
+            _cts = new CancellationTokenSource();
+            return GrpcEnvironment.KillServersAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Grpc.Core;
 
 namespace Analogy.LogViewer.gRPCClient
 {
@@ -11,6 +12,8 @@ namespace Analogy.LogViewer.gRPCClient
         {
             GRpcClient client = new GRpcClient();
             await client.InitClientAndSendTestMessage();
+            GrpcEnvironment.ShutdownChannelsAsync();
+
         }
     }
 }

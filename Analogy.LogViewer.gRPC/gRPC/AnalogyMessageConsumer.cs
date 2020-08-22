@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.LogViewer.gRPCLogServer;
 using Grpc.Core;
@@ -12,29 +13,29 @@ namespace Analogy.LogViewer.gRPC
     public class AnalogyMessageConsumer
     {
         private static gRPCLogServer.Analogy.AnalogyClient client { get; set; }
-        private GrpcChannel channel;
-        private AsyncServerStreamingCall<gRPCLogServer.AnalogyLogMessage> stream;
-        private CancellationTokenSource cts;
+        private readonly AsyncServerStreamingCall<gRPCLogServer.AnalogyLogMessage> _stream;
+        private CancellationTokenSource _cts;
         static AnalogyMessageConsumer()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
-        public AnalogyMessageConsumer()
+        public AnalogyMessageConsumer(string address)
         {
-            channel = GrpcChannel.ForAddress("http://localhost:6000");
+            //using var channel = GrpcChannel.ForAddress("http://localhost:6000");
+            using var channel = GrpcChannel.ForAddress(address);
             client = new gRPCLogServer.Analogy.AnalogyClient(channel);
             AnalogyConsumerMessage m = new AnalogyConsumerMessage {Message = "client"};
-            stream = client.SubscribeForConsumeMessages(m);
+            _stream = client.SubscribeForConsumeMessages(m);
         }
 
         public async IAsyncEnumerable<Interfaces.AnalogyLogMessage> GetMessages()
         {
-            cts = new CancellationTokenSource();
-            await foreach (var m in stream.ResponseStream.ReadAllAsync())
+            _cts = new CancellationTokenSource();
+            await foreach (var m in _stream.ResponseStream.ReadAllAsync())
             {
-
-                Interfaces.AnalogyLogMessage msg = new Interfaces.AnalogyLogMessage()
+                var token = _cts.Token;
+                Interfaces.AnalogyLogMessage msg = new Interfaces.AnalogyLogMessage
                 {
                     Id = Guid.Parse((ReadOnlySpan<char>)m.Id),
                     Category = m.Category,
@@ -53,15 +54,16 @@ namespace Analogy.LogViewer.gRPC
                     User = m.User
                 };
                 yield return msg;
-                if (cts.Token.IsCancellationRequested)
+                if (token.IsCancellationRequested)
                     yield break;
 
             }
         }
 
-        public void Stop()
+        public Task Stop()
         {
-            cts?.Cancel();
+            _cts?.Cancel();
+           return  GrpcEnvironment.ShutdownChannelsAsync();
         }
     }
 }

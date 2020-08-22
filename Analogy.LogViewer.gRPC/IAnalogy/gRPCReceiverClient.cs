@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.Managers;
+using Grpc.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
@@ -43,27 +44,31 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             //nop
         }
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
-        public void StartReceiving()
+        public Task StartReceiving()
         {
-            consumer = new AnalogyMessageConsumer();
+            consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress); 
+            cts = new CancellationTokenSource();
             hostingTask = Task.Factory.StartNew(async () =>
             {
+                var token = cts.Token;
                 await foreach (var message in consumer.GetMessages())
                 {
+                    if (token.IsCancellationRequested)
+                        break;
                     OnMessageReady?.Invoke(this,
                         new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, ID));
                 }
             });
+            return Task.CompletedTask;
         }
 
-        public void StopReceiving()
+        public Task StopReceiving()
         {
             gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
-            cts.Cancel();
-            OnDisconnected?.Invoke(this,
-                new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
+            cts?.Cancel();
+            OnDisconnected?.Invoke(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
             cts = new CancellationTokenSource();
-
+           return consumer.Stop();
         }
     }
 }
