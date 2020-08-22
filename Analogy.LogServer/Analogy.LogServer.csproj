@@ -7,10 +7,14 @@
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPCLogServer</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPCLogServer</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
 		<ApplicationIcon>Analogy.gRPC.service.ico</ApplicationIcon>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageIcon>Analogy.gRPC.service.png</PackageIcon>
+		<Version>0.2.0</Version>
+		<Copyright>Lior Banai @ 2020</Copyright>
 	</PropertyGroup>
 	<ItemGroup>
 		<Protobuf Include="Protos\Analogy.proto" GrpcServices="Server" />
@@ -30,6 +34,13 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\Assets\Analogy.gRPC.service.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
