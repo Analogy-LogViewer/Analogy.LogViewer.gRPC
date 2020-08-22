@@ -12,12 +12,6 @@
 <a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/blob/master/LICENSE.md">
     <img src="https://img.shields.io/github/license/Analogy-LogViewer/Analogy.LogViewer.gRPC"  alt="License" />
 </a>
-<a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/releases">
-    <img src="https://img.shields.io/github/v/release/Analogy-LogViewer/Analogy.LogViewer.gRPC"  alt="Latest Release" />
-</a>
-<a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/compare/V1.0.4...master">
-    <img src="https://img.shields.io/github/commits-since/Analogy-LogViewer/Analogy.LogViewer.gRPC/latest"  alt="Commits Since Latest Release"/>
-</a>
 </p>
 
 gRPC data provider for Analogy Log Viewer
