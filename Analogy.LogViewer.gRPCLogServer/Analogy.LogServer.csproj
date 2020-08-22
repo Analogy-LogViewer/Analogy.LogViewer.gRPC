@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
-    <StartupObject>Analogy.LogViewer.gRPCLogServer.Program</StartupObject>
+    <StartupObject>Analogy.LogServer.Program</StartupObject>
     <Authors>Lior Banai</Authors>
     <Company>Analogy.LogViewer</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

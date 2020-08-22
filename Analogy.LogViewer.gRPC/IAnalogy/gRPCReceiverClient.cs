@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
+using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
 using Grpc.Core;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +16,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
-        public string OptionalTitle { get; } = "gRPC client Receiver";
+        public string OptionalTitle { get; } = "gRPC Log Server client Receiver";
         public Guid ID { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
@@ -46,7 +47,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
         public Task StartReceiving()
         {
-            consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress); 
+            consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress);
             cts = new CancellationTokenSource();
             hostingTask = Task.Factory.StartNew(async () =>
             {
@@ -68,7 +69,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             cts?.Cancel();
             OnDisconnected?.Invoke(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
             cts = new CancellationTokenSource();
-           return consumer.Stop();
+            return consumer.Stop();
         }
     }
 }

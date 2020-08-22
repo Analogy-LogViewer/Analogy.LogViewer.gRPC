@@ -1,39 +1,40 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace Analogy.LogViewer.gRPCLogServer
+namespace Analogy.LogServer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            CreateHostBuilder(args).Build().Run();
+
+            CreateHostBuilder().Build().Run();
             GrpcEnvironment.KillServersAsync();
 
         }
 
-        // Additional configuration is required to successfully run gRPC on macOS.
-        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder() =>
+            Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureKestrel(options =>
-                    {
-                        options.Listen(IPAddress.Any, 6000, listenOptions =>
-                        {
-                            listenOptions.Protocols = HttpProtocols.Http2;
-                        });
-                    });
-                    webBuilder.UseStartup<Startup>();
-                }).UseWindowsService();
+               {
+                   var config = new ConfigurationBuilder()
+                       .SetBasePath(Directory.GetCurrentDirectory())  //location of the exe file
+                       .AddJsonFile("appsettings_LogServer.json", optional: false, reloadOnChange: true).Build();
+                   webBuilder.UseConfiguration(config)
+                       .ConfigureKestrel((context, options) =>
+                       {
+                           options.Configure(context.Configuration.GetSection("Kestrel"))
+                               .Endpoint("Https", listenOptions =>
+                               {
+                                   listenOptions.ListenOptions.Protocols = HttpProtocols.Http2;
+                               });
+                       })
+                       .UseStartup<Startup>();
+               }).UseWindowsService();
     }
 }

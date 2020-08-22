@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
-using Analogy.LogViewer.gRPCLogServer;
-using Google.Protobuf.WellKnownTypes;
+using Analogy.LogServer;
 using Grpc.Core;
 using Grpc.Net.Client;
-using AnalogyLogMessage = Analogy.LogViewer.gRPCLogServer.AnalogyLogMessage;
 using Enum = System.Enum;
 
-namespace Analogy.LogViewer.gRPCClient
+namespace Analogy.LogServer.Clients
 {
     public class AnalogyMessageConsumer
     {
-        private static gRPCLogServer.Analogy.AnalogyClient client { get; set; }
-        private readonly AsyncServerStreamingCall<gRPCLogServer.AnalogyLogMessage> _stream;
+        private static Analogy.AnalogyClient client { get; set; }
+        private readonly AsyncServerStreamingCall<AnalogyLogMessage> _stream;
         private CancellationTokenSource _cts;
 
         static AnalogyMessageConsumer()
@@ -28,8 +25,8 @@ namespace Analogy.LogViewer.gRPCClient
         {
             //using var channel = GrpcChannel.ForAddress("http://localhost:6000");
             using var channel = GrpcChannel.ForAddress(address);
-            client = new gRPCLogServer.Analogy.AnalogyClient(channel);
-            AnalogyConsumerMessage m = new AnalogyConsumerMessage {Message = "client"};
+            client = new Analogy.AnalogyClient(channel);
+            AnalogyConsumerMessage m = new AnalogyConsumerMessage { Message = "client" };
             _stream = client.SubscribeForConsumeMessages(m);
         }
 
@@ -41,12 +38,12 @@ namespace Analogy.LogViewer.gRPCClient
                 var token = _cts.Token;
                 Interfaces.AnalogyLogMessage msg = new Interfaces.AnalogyLogMessage()
                 {
-                    Id = Guid.Parse((ReadOnlySpan<char>) m.Id),
+                    Id = Guid.Parse((ReadOnlySpan<char>)m.Id),
                     Category = m.Category,
-                    Class = (AnalogyLogClass) Enum.Parse(typeof(AnalogyLogClass), m.Class),
+                    Class = (AnalogyLogClass)Enum.Parse(typeof(AnalogyLogClass), m.Class),
                     Date = m.Date.ToDateTime().ToLocalTime(),
                     FileName = m.FileName,
-                    Level = (AnalogyLogLevel) Enum.Parse(typeof(AnalogyLogLevel), m.Level),
+                    Level = (AnalogyLogLevel)Enum.Parse(typeof(AnalogyLogLevel), m.Level),
                     LineNumber = m.LineNumber,
                     MachineName = m.MachineName,
                     MethodName = m.MethodName,
@@ -60,7 +57,7 @@ namespace Analogy.LogViewer.gRPCClient
                 yield return msg;
                 if (token.IsCancellationRequested)
                     yield break;
-                
+
             }
         }
         public Task Stop()

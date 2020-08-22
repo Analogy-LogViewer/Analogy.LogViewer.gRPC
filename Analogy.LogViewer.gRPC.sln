@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogViewer.gRPC", "Analogy.LogViewer.gRPC\Analogy.LogViewer.gRPC.csproj", "{11CE2625-CBEF-4D3C-B61D-6B63ACA8CC84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogViewer.gRPCClient", "Analogy.LogViewer.gRPCClient\Analogy.LogViewer.gRPCClient.csproj", "{F6A08D8F-939F-44DC-BCD4-FE11E25FB4EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogServer.Clients", "Analogy.LogViewer.gRPCClient\Analogy.LogServer.Clients.csproj", "{F6A08D8F-939F-44DC-BCD4-FE11E25FB4EC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogViewer.gRPC.UnitTests", "Analogy.LogViewer.gRPC.UnitTests\Analogy.LogViewer.gRPC.UnitTests.csproj", "{AD56141D-255C-4EB4-B774-E2440F873903}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogViewer.gRPCLogServer", "Analogy.LogViewer.gRPCLogServer\Analogy.LogViewer.gRPCLogServer.csproj", "{D93D1418-06F1-4FE0-BDF9-083AE260DB96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogServer", "Analogy.LogViewer.gRPCLogServer\Analogy.LogServer.csproj", "{D93D1418-06F1-4FE0-BDF9-083AE260DB96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

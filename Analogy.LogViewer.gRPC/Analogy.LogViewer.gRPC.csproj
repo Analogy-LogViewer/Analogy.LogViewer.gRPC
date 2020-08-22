@@ -60,4 +60,9 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Analogy.LogViewer.gRPCClient\Analogy.LogServer.Clients.csproj" />
+	  <ProjectReference Include="..\Analogy.LogViewer.gRPCLogServer\Analogy.LogServer.csproj" />
+	</ItemGroup>
+
 </Project>

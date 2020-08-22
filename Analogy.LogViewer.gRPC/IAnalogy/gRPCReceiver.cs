@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
+using Analogy.LogServer;
 using Analogy.LogViewer.gRPC.Managers;
 using Grpc.Core;
 using Microsoft.Extensions.Hosting;
@@ -16,8 +17,8 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         private static CancellationTokenSource _cts;
         private IHost _hoster;
         private Task hostingTask;
-        public string OptionalTitle { get; } = "gRPC server";
-        public Guid ID { get; }=new Guid("F475166B-5BBA-40E4-B8A2-4F9E8C40C761");
+        public string OptionalTitle { get; } = "gRPC Self Hosting Server";
+        public Guid ID { get; } = new Guid("F475166B-5BBA-40E4-B8A2-4F9E8C40C761");
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
         public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
@@ -47,7 +48,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
         public Task StartReceiving()
         {
-            _hoster = Hoster.CreateHostBuilder().Build();
+            _hoster = Program.CreateHostBuilder().Build();
             gRPCReporter.Instance.OnMessageReady += OnInstanceOnOnMessageReady;
             hostingTask = _hoster.StartAsync(_cts.Token);
             return Task.CompletedTask;

@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
-using Analogy.LogViewer.gRPCLogServer;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
-using AnalogyLogMessage = Analogy.LogViewer.gRPCLogServer.AnalogyLogMessage;
 
-namespace Analogy.LogViewer.gRPCClient
+namespace Analogy.LogServer.Clients
 {
     public class AnalogyMessageProducer
     {
         private static int processId = Process.GetCurrentProcess().Id;
         private static string processName = Process.GetCurrentProcess().ProcessName;
-        private static gRPCLogServer.Analogy.AnalogyClient client { get; set; }
+        private static Analogy.AnalogyClient client { get; set; }
         private GrpcChannel channel;
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> stream;
         static AnalogyMessageProducer()
@@ -28,14 +24,14 @@ namespace Analogy.LogViewer.gRPCClient
         public AnalogyMessageProducer()
         {
             channel = GrpcChannel.ForAddress("http://localhost:6000");
-            client = new gRPCLogServer.Analogy.AnalogyClient(channel);
+            client = new Analogy.AnalogyClient(channel);
             stream = client.SubscribeForSendMessages();
         }
 
         public async Task Log(string text, string source, AnalogyLogLevel level, string category = "", [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
-            var m = new gRPCLogServer.AnalogyLogMessage()
+            var m = new AnalogyLogMessage()
             {
                 Text = text,
                 Category = category,

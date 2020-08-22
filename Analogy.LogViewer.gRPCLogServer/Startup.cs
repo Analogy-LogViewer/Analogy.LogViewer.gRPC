@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Analogy.LogServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Analogy.LogViewer.gRPCLogServer
+namespace Analogy.LogServer
 {
     public class Startup
     {
@@ -17,7 +14,7 @@ namespace Analogy.LogViewer.gRPCLogServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
-            services.AddSingleton<AnalogyViewerSender>();
+            services.AddSingleton<MessagesContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Analogy.LogServer;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 
-namespace Analogy.LogViewer.gRPCLogServer
+namespace Analogy.LogServer
 {
-    public class AnalogyViewerSender
+    public class MessagesContainer
     {
         private readonly BlockingCollection<AnalogyLogMessage> messages;
         private List<(IServerStreamWriter<AnalogyLogMessage> stream, bool active)> clients;
         private ReaderWriterLockSlim sync = new ReaderWriterLockSlim();
         private Task producer;
-        private ILogger<AnalogyViewerSender> _logger;
+        private ILogger<MessagesContainer> _logger;
 
-        public AnalogyViewerSender(ILogger<AnalogyViewerSender> logger)
+        public MessagesContainer(ILogger<MessagesContainer> logger)
         {
             _logger = logger;
             messages = new BlockingCollection<AnalogyLogMessage>();
@@ -49,8 +49,9 @@ namespace Analogy.LogViewer.gRPCLogServer
         {
             try
             {
+                _logger.LogInformation("Adding client with message: {message}", requestMessage);
                 sync.EnterWriteLock();
-                clients.Add((responseStream,true));
+                clients.Add((responseStream, true));
             }
             finally
             {

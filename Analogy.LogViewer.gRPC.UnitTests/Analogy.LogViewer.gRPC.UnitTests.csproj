@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Analogy.LogViewer.gRPCClient\Analogy.LogViewer.gRPCClient.csproj" />
+    <ProjectReference Include="..\Analogy.LogViewer.gRPCClient\Analogy.LogServer.Clients.csproj" />
     <ProjectReference Include="..\Analogy.LogViewer.gRPC\Analogy.LogViewer.gRPC.csproj" />
   </ItemGroup>
 

@@ -1,29 +1,26 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.Interfaces;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using Enum = System.Enum;
 
-namespace Analogy.LogViewer.gRPCLogServer
+namespace Analogy.LogServer.Services
 {
     public class GreeterService : Analogy.AnalogyBase
     {
         private readonly ILogger<GreeterService> _logger;
-        private AnalogyViewerSender Sender { get; }
+        private MessagesContainer MessageContainer { get; }
 
-        public GreeterService(AnalogyViewerSender sender, ILogger<GreeterService> logger)
+        public GreeterService(MessagesContainer messageContainer, ILogger<GreeterService> logger)
         {
             _logger = logger;
-            Sender = sender;
+            MessageContainer = messageContainer;
         }
 
         public override async Task<AnalogyMessageReply> SubscribeForSendMessages(
             IAsyncStreamReader<AnalogyLogMessage> requestStream, ServerCallContext context)
         {
+            _logger.LogInformation("Client subscribe for sending messages");
             var tasks = Task.WhenAll(AwaitCancellation(context.CancellationToken),
                 HandleClientActions(requestStream, context.CancellationToken));
 
@@ -37,54 +34,32 @@ namespace Analogy.LogViewer.gRPCLogServer
             }
 
             _logger.LogInformation("Subscription finished.");
-            // gRPCReporter.Instance.MessageReady(m);
             return new AnalogyMessageReply { Message = "Reply at " + DateTime.Now };
         }
 
         public override async Task SubscribeForConsumeMessages(AnalogyConsumerMessage request, IServerStreamWriter<AnalogyLogMessage> responseStream, ServerCallContext context)
         {
-            Sender.AddConsumer(request.Message, responseStream);
+            MessageContainer.AddConsumer(request.Message, responseStream);
             try
             {
                 await AwaitCancellation(context.CancellationToken);
             }
             catch (Exception e)
             {
-              _logger.LogError(e,"Error");
+                _logger.LogError(e, "Error");
             }
         }
 
-        private async Task HandleClientActions(IAsyncStreamReader<AnalogyLogMessage> requestStream,
-            CancellationToken token)
+        private async Task HandleClientActions(IAsyncStreamReader<AnalogyLogMessage> requestStream, CancellationToken token)
         {
-            ulong i = 0;
             try
             {
                 await foreach (var message in requestStream.ReadAllAsync(token))
                 {
                     try
                     {
-                        Console.WriteLine("Received " +i++);
-                        Sender.AddMessage(message);
-                        //Interfaces.AnalogyLogMessage m = new Interfaces.AnalogyLogMessage
-                        //{
-                        //    Text = message.Text,
-                        //    ThreadId = message.ThreadId,
-                        //    MachineName = message.MachineName,
-                        //    Id = Guid.Parse(message.Id),
-                        //    Category = message.Category,
-                        //    Source = message.Source,
-                        //    MethodName = message.MethodName,
-                        //    FileName = message.FileName,
-                        //    LineNumber = message.LineNumber,
-                        //    Class = (AnalogyLogClass) Enum.Parse(typeof(AnalogyLogClass), message.Class),
-                        //    Level = (AnalogyLogLevel) Enum.Parse(typeof(AnalogyLogLevel), message.Level),
-                        //    Module = message.Module,
-                        //    ProcessId = message.ProcessId,
-                        //    Date = message.Date.ToDateTime(),
-                        //    User = message.User,
-                        //    AdditionalInformation = null
-                        //};
+
+                        MessageContainer.AddMessage(message);
                     }
                     catch (Exception e)
                     {

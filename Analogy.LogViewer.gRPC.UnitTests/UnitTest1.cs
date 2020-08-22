@@ -11,7 +11,7 @@ namespace Analogy.LogViewer.gRPC.UnitTests
         public void TestMethod1()
         {
             gRPCFactory gf = new gRPCFactory();
-            Assert.IsTrue(gf.FactoryId!= Guid.Empty);
+            Assert.IsTrue(gf.FactoryId != Guid.Empty);
         }
     }
 }
