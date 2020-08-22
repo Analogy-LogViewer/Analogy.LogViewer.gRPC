@@ -54,10 +54,13 @@ jobs:
 
     # Publish Artifacts 
     - name: 'Publish Artifacts'   
-      uses: actions/upload-artifact@v1.0.0
+    - uses: actions/upload-artifact@v2
       with:
-        name: 'artifactory'
-        path: ./Analogy.LogViewer.gRPC/bin/${{ matrix.configuration }}
+       name: 'artifactory'
+       path: |
+        ./Analogy.LogViewer.gRPC/bin/${{ matrix.configuration }}./Analogy.LogViewer.gRPC/bin/${{ matrix.configuration }}
+        ./Analogy.LogServer.Clients/bin/${{ matrix.configuration }}./Analogy.LogViewer.gRPC/bin/${{ matrix.configuration }}
+        
   push-nuget:
     name: 'Push NuGet Packages'
     needs: build
