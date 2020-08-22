@@ -1,9 +1,12 @@
 using System.IO;
 using System.Net;
+using System.Reflection;
+using Analogy.LogServer.Services;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Analogy.LogServer
@@ -12,6 +15,7 @@ namespace Analogy.LogServer
     {
         public static void Main()
         {
+
 
             CreateHostBuilder().Build().Run();
             GrpcEnvironment.KillServersAsync();
@@ -23,7 +27,7 @@ namespace Analogy.LogServer
                 .ConfigureWebHostDefaults(webBuilder =>
                {
                    var config = new ConfigurationBuilder()
-                       .SetBasePath(Directory.GetCurrentDirectory())  //location of the exe file
+                       .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))  //location of the exe file
                        .AddJsonFile("appsettings_LogServer.json", optional: false, reloadOnChange: true).Build();
                    webBuilder.UseConfiguration(config)
                        .ConfigureKestrel((context, options) =>
@@ -35,6 +39,10 @@ namespace Analogy.LogServer
                                });
                        })
                        .UseStartup<Startup>();
-               }).UseWindowsService();
+               })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    services.AddHostedService<BackgroundWorker>();
+                }).UseWindowsService();
     }
 }
