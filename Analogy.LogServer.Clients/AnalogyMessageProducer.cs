@@ -25,12 +25,13 @@ namespace Analogy.LogServer.Clients
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
 
-        public AnalogyMessageProducer(ILogger logger)
+        public AnalogyMessageProducer(string address, ILogger logger)
         {
             _logger = logger;
             try
             {
-                channel = GrpcChannel.ForAddress("http://localhost:6000");
+                // channel = GrpcChannel.ForAddress("http://localhost:6000");
+                channel = GrpcChannel.ForAddress(address);
                 client = new Analogy.AnalogyClient(channel);
                 stream = client.SubscribeForSendMessages();
             }

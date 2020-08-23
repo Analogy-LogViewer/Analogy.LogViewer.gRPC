@@ -20,7 +20,7 @@ namespace Analogy.LogServer.Tests
             if (producing) return;
             producing = true;
             btnProducer.Enabled = false;
-            var p = new AnalogyMessageProducer(null);
+            var p = new AnalogyMessageProducer("http://localhost:6000", null);
 
             for (int i = 0; i < 100000; i++)
             {
