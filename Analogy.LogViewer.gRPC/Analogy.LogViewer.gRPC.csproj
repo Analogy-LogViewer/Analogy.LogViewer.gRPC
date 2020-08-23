@@ -6,14 +6,14 @@
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<IsPackable>true</IsPackable>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Copyright>Lior Banai 2020</Copyright>
+		<Copyright>Lior Banai © 2020</Copyright>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.0.7</Version>
+		<Version>1.0.8</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.DataProviders.Extensions" Version="1.1.7.4" />
+		<PackageReference Include="Analogy.DataProviders.Extensions" Version="1.1.7.5" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.4.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.31.0" />
 		<PackageReference Include="Grpc.Core" Version="2.31.0" />
