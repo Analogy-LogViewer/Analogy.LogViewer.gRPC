@@ -7,6 +7,7 @@ using Analogy.Interfaces;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
+using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogServer.Clients
 {
@@ -17,15 +18,26 @@ namespace Analogy.LogServer.Clients
         private static Analogy.AnalogyClient client { get; set; }
         private GrpcChannel channel;
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> stream;
+        private ILogger _logger;
         static AnalogyMessageProducer()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
         }
-        public AnalogyMessageProducer()
+
+        public AnalogyMessageProducer(ILogger logger)
         {
-            channel = GrpcChannel.ForAddress("http://localhost:6000");
-            client = new Analogy.AnalogyClient(channel);
-            stream = client.SubscribeForSendMessages();
+            _logger = logger;
+            try
+            {
+                channel = GrpcChannel.ForAddress("http://localhost:6000");
+                client = new Analogy.AnalogyClient(channel);
+                stream = client.SubscribeForSendMessages();
+            }
+            catch (Exception e)
+            {
+                logger?.LogError(e, "Error creating gRPC Connection");
+            }
+
         }
 
         public async Task Log(string text, string source, AnalogyLogLevel level, string category = "", [CallerMemberName] string memberName = "",
@@ -49,12 +61,29 @@ namespace Analogy.LogServer.Clients
                 Source = source,
                 User = Environment.UserName
             };
-            await stream.RequestStream.WriteAsync(m);
+            try
+            {
+                await stream.RequestStream.WriteAsync(m);
+
+            }
+            catch (Exception e)
+            {
+                _logger?.LogError(e, "Error sending message to gRPC Server");
+            }
         }
         public void StopReceiving()
         {
-            channel.Dispose();
-            GrpcEnvironment.ShutdownChannelsAsync();
+            try
+            {
+                channel.Dispose();
+                GrpcEnvironment.ShutdownChannelsAsync();
+            }
+            catch (Exception e)
+            {
+                _logger?.LogError(e, "Error closing  gRPC connection to Server");
+
+            }
+
         }
     }
 }
