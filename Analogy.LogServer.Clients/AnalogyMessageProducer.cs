@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using Analogy.Interfaces;
+﻿using Analogy.Interfaces;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Analogy.LogServer.Clients
 {
@@ -19,6 +19,7 @@ namespace Analogy.LogServer.Clients
         private GrpcChannel channel;
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> stream;
         private ILogger _logger;
+        private bool connected = true;
         static AnalogyMessageProducer()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -43,6 +44,7 @@ namespace Analogy.LogServer.Clients
         public async Task Log(string text, string source, AnalogyLogLevel level, string category = "", [CallerMemberName] string memberName = "",
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
+            if (!connected) return;
             var m = new AnalogyLogMessage()
             {
                 Text = text,
@@ -68,6 +70,7 @@ namespace Analogy.LogServer.Clients
             }
             catch (Exception e)
             {
+                connected = false;
                 _logger?.LogError(e, "Error sending message to gRPC Server");
             }
         }
