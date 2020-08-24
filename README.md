@@ -27,3 +27,6 @@ The following modules exists:
 With Analogy Log Service you can have multiple executables sending messages to the log service and have Analogy Log Viewer consume those messages:
 ![Example](./Assets/Analogy.LogService.gif)
 
+
+To install Analogy Log Server as windows service use the following commnad line:
+> - sc create Analogy.LogServer binpath=full path to Analogy.LogServer.exe file
