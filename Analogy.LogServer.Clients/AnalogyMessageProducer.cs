@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogServer.Clients
 {
-    public class AnalogyMessageProducer
+    public class AnalogyMessageProducer:IDisposable
     {
         private static int processId = Process.GetCurrentProcess().Id;
         private static string processName = Process.GetCurrentProcess().ProcessName;
@@ -88,6 +88,12 @@ namespace Analogy.LogServer.Clients
 
             }
 
+        }
+        
+        public void Dispose()
+        {
+            channel?.Dispose();
+            stream?.Dispose();
         }
     }
 }

@@ -9,7 +9,7 @@ using Enum = System.Enum;
 
 namespace Analogy.LogServer.Clients
 {
-    public class AnalogyMessageConsumer
+    public class AnalogyMessageConsumer : IDisposable
     {
         private static Analogy.AnalogyClient client { get; set; }
         private readonly AsyncServerStreamingCall<AnalogyLogMessage> _stream;
@@ -64,6 +64,14 @@ namespace Analogy.LogServer.Clients
             _cts?.Cancel();
             return channel.ShutdownAsync();
 
+        }
+
+        public void Dispose()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _stream?.Dispose();
+            channel?.Dispose();
         }
     }
 }
