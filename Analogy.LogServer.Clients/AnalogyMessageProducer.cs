@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogServer.Clients
 {
-    public class AnalogyMessageProducer:IDisposable
+    public class AnalogyMessageProducer : IDisposable
     {
-        private static int processId = Process.GetCurrentProcess().Id;
-        private static string processName = Process.GetCurrentProcess().ProcessName;
+        private static readonly int ProcessId = Process.GetCurrentProcess().Id;
+        private static readonly string ProcessName = Process.GetCurrentProcess().ProcessName;
         private static Analogy.AnalogyClient client { get; set; }
         private GrpcChannel channel;
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> stream;
@@ -42,8 +42,8 @@ namespace Analogy.LogServer.Clients
 
         }
 
-        public async Task Log(string text, string source, AnalogyLogLevel level, string category = "", [CallerMemberName] string memberName = "",
-            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
+        public async Task Log(string text, string source, AnalogyLogLevel level, string category = "",
+            string machineName = null, string userName = null, string processName = null, int processId = -1, int threadId = -1, [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
             if (!connected) return;
             var m = new AnalogyLogMessage()
@@ -56,13 +56,13 @@ namespace Analogy.LogServer.Clients
                 Id = Guid.NewGuid().ToString(),
                 Level = level.ToString(),
                 LineNumber = lineNumber,
-                MachineName = Environment.MachineName,
+                MachineName = machineName ?? Environment.MachineName,
                 MethodName = memberName,
-                Module = processName,
-                ProcessId = processId,
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
+                Module = processName ?? ProcessName,
+                ProcessId = processId != -1 ? processId : ProcessId,
+                ThreadId = threadId != -1 ? threadId : Thread.CurrentThread.ManagedThreadId,
                 Source = source,
-                User = Environment.UserName
+                User = userName ?? Environment.UserName
             };
             try
             {
@@ -89,7 +89,7 @@ namespace Analogy.LogServer.Clients
             }
 
         }
-        
+
         public void Dispose()
         {
             channel?.Dispose();
