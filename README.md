@@ -28,5 +28,5 @@ With Analogy Log Service you can have multiple executables sending messages to t
 ![Example](./Assets/Analogy.LogService.gif)
 
 
-To install Analogy Log Server as windows service use the following commnad line:
+To install Analogy Log Server as windows service use the following command line:
 > sc create Analogy.LogServer binpath=full path to Analogy.LogServer.exe file
