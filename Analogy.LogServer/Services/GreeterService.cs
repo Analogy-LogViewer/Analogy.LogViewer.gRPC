@@ -11,19 +11,19 @@ namespace Analogy.LogServer.Services
 {
     public class GreeterService : Analogy.AnalogyBase
     {
-        private readonly ILogger<GreeterService> _logger;
+        private ILogger<GreeterService> Logger { get; }
         private MessagesContainer MessageContainer { get; }
 
         public GreeterService(MessagesContainer messageContainer, ILogger<GreeterService> logger)
         {
-            _logger = logger;
+            Logger = logger;
             MessageContainer = messageContainer;
         }
 
         public override async Task<AnalogyMessageReply> SubscribeForSendMessages(
             IAsyncStreamReader<AnalogyLogMessage> requestStream, ServerCallContext context)
         {
-            _logger.LogInformation("Client subscribe for sending messages");
+            Logger.LogInformation("Client subscribe for sending messages");
             var tasks = Task.WhenAll(AwaitCancellation(context.CancellationToken),
                 HandleClientActions(requestStream, context.CancellationToken));
 
@@ -33,10 +33,10 @@ namespace Analogy.LogServer.Services
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex.Message);
+                Logger.LogInformation(ex.Message);
             }
 
-            _logger.LogInformation("Subscription finished.");
+            Logger.LogInformation("Subscription finished.");
             return new AnalogyMessageReply { Message = "Reply at " + DateTime.Now };
         }
 
@@ -68,7 +68,7 @@ namespace Analogy.LogServer.Services
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "Error");
+                Logger.LogError(e, "Error");
             }
         }
 
@@ -85,14 +85,14 @@ namespace Analogy.LogServer.Services
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError($"Error  receiving messages: {e}");
+                        Logger.LogError($"Error  receiving messages: {e}");
                     }
                 }
             }
             catch (Exception e)
             {
 
-                _logger.LogError($"Error: {e.Message}");
+                Logger.LogError($"Error: {e.Message}");
             }
         }
 

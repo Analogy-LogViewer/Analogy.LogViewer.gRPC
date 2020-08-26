@@ -42,7 +42,7 @@ namespace Analogy.LogServer
                })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<BackgroundWorker>();
+                    services.AddHostedService<CleanUpWorker>();
                 }).UseWindowsService();
     }
 }
