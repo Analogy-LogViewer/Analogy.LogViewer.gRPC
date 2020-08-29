@@ -51,13 +51,20 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             cts = new CancellationTokenSource();
             hostingTask = Task.Factory.StartNew(async () =>
             {
-                var token = cts.Token;
-                await foreach (var message in consumer.GetMessages())
+                try
                 {
-                    if (token.IsCancellationRequested)
-                        break;
-                    OnMessageReady?.Invoke(this,
-                        new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, ID));
+                    var token = cts.Token;
+                    await foreach (var message in consumer.GetMessages().WithCancellation(token))
+                    {
+                        if (token.IsCancellationRequested)
+                            break;
+                        OnMessageReady?.Invoke(this,
+                            new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, ID));
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.Instance.LogError(nameof(gRPCReceiverClient), "Error: " + e.Message);
                 }
             });
             return Task.CompletedTask;

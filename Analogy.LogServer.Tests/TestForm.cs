@@ -1,6 +1,7 @@
 ﻿using Analogy.Interfaces;
 using Analogy.LogServer.Clients;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,10 +22,10 @@ namespace Analogy.LogServer.Tests
             producing = true;
             btnProducer.Enabled = false;
             var p = new AnalogyMessageProducer($"http://{txtIP.Text}:6000", null);
-
+            var ai = new Dictionary<string, string> {{"some key", "some value"}};
             for (int i = 0; i < 100000; i++)
             {
-                await p.Log("test " + i, "none", AnalogyLogLevel.Event).ConfigureAwait(false);
+                await p.Log(text: "test " + i, source: "none", additionalInformation: ai, level:AnalogyLogLevel.Event).ConfigureAwait(false);
                 await Task.Delay(500).ConfigureAwait(false);
             }
 
