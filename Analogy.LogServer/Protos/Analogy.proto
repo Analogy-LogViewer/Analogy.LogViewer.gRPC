@@ -28,6 +28,7 @@ message AnalogyLogMessage {
 	int32 ProcessId =13;
 	int32 ThreadId =14;
 	string User =15;
+	map<string,string> AdditionalInformation=16;
 }
 
 // The response message containing the greetings.

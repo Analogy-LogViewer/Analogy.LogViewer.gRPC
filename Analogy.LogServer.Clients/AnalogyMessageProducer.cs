@@ -4,10 +4,12 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Protobuf.Collections;
 
 namespace Analogy.LogServer.Clients
 {
@@ -43,7 +45,7 @@ namespace Analogy.LogServer.Clients
         }
 
         public async Task Log(string text, string source, AnalogyLogLevel level, string category = "",
-            string machineName = null, string userName = null, string processName = null, int processId = -1, int threadId = -1, [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
+            string machineName = null, string userName = null, string processName = null, int processId = -1, int threadId = -1, Dictionary<string, string> additionalInformation = null, [CallerMemberName] string memberName = "", [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filePath = "")
         {
             if (!connected) return;
             var m = new AnalogyLogMessage()
@@ -62,8 +64,14 @@ namespace Analogy.LogServer.Clients
                 ProcessId = processId != -1 ? processId : ProcessId,
                 ThreadId = threadId != -1 ? threadId : Thread.CurrentThread.ManagedThreadId,
                 Source = source,
-                User = userName ?? Environment.UserName
+                User = userName ?? Environment.UserName,
             };
+            if (additionalInformation != null)
+                foreach (KeyValuePair<string, string> keyValuePair in additionalInformation)
+                {
+                    m.AdditionalInformation.Add(keyValuePair.Key, keyValuePair.Value);
+                }
+
             try
             {
                 await stream.RequestStream.WriteAsync(m);
