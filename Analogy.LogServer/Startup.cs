@@ -18,6 +18,7 @@ namespace Analogy.LogServer
             CommonSystemConfiguration serviceConfiguration = new CommonSystemConfiguration();
             Configuration.Bind("ServiceConfiguration", serviceConfiguration);
             services.AddSingleton(serviceConfiguration);
+            services.AddSingleton<GRPCLogConsumer>();
             services.AddGrpc();
             services.AddSingleton<MessagesContainer>();
         }

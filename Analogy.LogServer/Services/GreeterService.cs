@@ -11,13 +11,16 @@ namespace Analogy.LogServer.Services
 {
     public class GreeterService : Analogy.AnalogyBase
     {
+        private readonly GRPCLogConsumer _grpcLogConsumer;
         private ILogger<GreeterService> Logger { get; }
         private MessagesContainer MessageContainer { get; }
 
-        public GreeterService(MessagesContainer messageContainer, ILogger<GreeterService> logger)
+        public GreeterService(MessagesContainer messageContainer, GRPCLogConsumer grpcLogConsumer, ILogger<GreeterService> logger)
         {
+            _grpcLogConsumer = grpcLogConsumer;
             Logger = logger;
             MessageContainer = messageContainer;
+            messageContainer.AddConsumer(_grpcLogConsumer);
         }
 
         public override async Task<AnalogyMessageReply> SubscribeForSendMessages(
@@ -42,7 +45,7 @@ namespace Analogy.LogServer.Services
 
         public override async Task SubscribeForConsumeMessages(AnalogyConsumerMessage request, IServerStreamWriter<AnalogyLogMessage> responseStream, ServerCallContext context)
         {
-            MessageContainer.AddConsumer(request.Message, responseStream);
+            _grpcLogConsumer.AddGrpcConsumer(request.Message, responseStream);
             await responseStream.WriteAsync(new AnalogyLogMessage
             {
                 Category = "Server Message",
@@ -80,7 +83,6 @@ namespace Analogy.LogServer.Services
                 {
                     try
                     {
-
                         MessageContainer.AddMessage(message);
                     }
                     catch (Exception e)

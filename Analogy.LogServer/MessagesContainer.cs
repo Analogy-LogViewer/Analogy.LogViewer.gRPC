@@ -3,8 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.LogServer;
-using Grpc.Core;
+using Analogy.LogServer.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogServer
@@ -12,50 +11,62 @@ namespace Analogy.LogServer
     public class MessagesContainer
     {
         private readonly BlockingCollection<AnalogyLogMessage> messages;
-        private List<(IServerStreamWriter<AnalogyLogMessage> stream, bool active)> clients;
-        private ReaderWriterLockSlim sync = new ReaderWriterLockSlim();
-        private Task producer;
+
+        private Task _consumer;
+        private readonly List<ILogConsumer> _consumers;
         private ILogger<MessagesContainer> _logger;
+        private readonly ReaderWriterLockSlim _sync = new ReaderWriterLockSlim();
 
         public MessagesContainer(ILogger<MessagesContainer> logger)
         {
             _logger = logger;
+            _consumers = new List<ILogConsumer>();
             messages = new BlockingCollection<AnalogyLogMessage>();
-            clients = new List<(IServerStreamWriter<AnalogyLogMessage> stream, bool active)>();
-            producer = Task.Factory.StartNew(async () =>
+
+            _consumer = Task.Factory.StartNew(async () =>
             {
                 foreach (var msg in messages.GetConsumingEnumerable())
                 {
-                    for (int i = 0; i < clients.Count; i++)
+                    try
                     {
-                        var (stream, active) = clients[i];
-                        if (!active) continue;
-                        try
+                        _sync.EnterReadLock();
+                        foreach (ILogConsumer consumer in _consumers)
                         {
-                            await stream.WriteAsync(msg);
+                            await consumer.ConsumeLog(msg);
                         }
-                        catch (Exception e)
-                        {
-                            clients[i] = (stream, false);
-                            logger.LogDebug(e, "Error sending message");
-                        }
+                    }
+                    finally
+                    {
+                        _sync.ExitReadLock();
                     }
                 }
             });
         }
         public void AddMessage(AnalogyLogMessage m) => messages.Add(m);
 
-        public void AddConsumer(string requestMessage, IServerStreamWriter<AnalogyLogMessage> responseStream)
+        public void AddConsumer(ILogConsumer consumer)
         {
             try
             {
-                _logger.LogInformation("Adding client with message: {message}", requestMessage);
-                sync.EnterWriteLock();
-                clients.Add((responseStream, true));
+                _logger.LogInformation("Add new consumer: {consumer}", consumer);
+                _sync.EnterWriteLock();
+                _consumers.Add(consumer);
             }
             finally
             {
-                sync.ExitWriteLock();
+                _sync.ExitWriteLock();
+            }
+        }
+        public void RemoveConsumer(ILogConsumer consumer)
+        {
+            try
+            {
+                _sync.EnterWriteLock();
+                _consumers.Remove(consumer);
+            }
+            finally
+            {
+                _sync.ExitWriteLock();
             }
         }
     }
