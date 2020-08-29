@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Serilog;
 namespace Analogy.LogServer
 {
     public class Startup
@@ -31,6 +31,7 @@ namespace Analogy.LogServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSerilogRequestLogging();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
