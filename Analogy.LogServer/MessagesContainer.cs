@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Analogy.LogServer.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.LogServer.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogServer
 {
@@ -42,6 +41,7 @@ namespace Analogy.LogServer
                 }
             });
         }
+
         public void AddMessage(AnalogyLogMessage m) => messages.Add(m);
 
         public void AddConsumer(ILogConsumer consumer)
@@ -57,6 +57,7 @@ namespace Analogy.LogServer
                 _sync.ExitWriteLock();
             }
         }
+
         public void RemoveConsumer(ILogConsumer consumer)
         {
             try
@@ -68,6 +69,12 @@ namespace Analogy.LogServer
             {
                 _sync.ExitWriteLock();
             }
+        }
+
+
+        public void Stop()
+        {
+            messages.CompleteAdding();
         }
     }
 }
