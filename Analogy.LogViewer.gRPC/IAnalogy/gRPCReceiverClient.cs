@@ -16,7 +16,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
-        public string OptionalTitle { get; } = "gRPC Log Server client Receiver";
+        public string OptionalTitle { get; } = "Connect to gRPC Log Server";
         public Guid ID { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
