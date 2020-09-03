@@ -17,7 +17,13 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         private static CancellationTokenSource cts;
         private Task hostingTask;
         public string OptionalTitle { get; } = "Connect to gRPC Log Server";
-        public Guid ID { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
+        public Guid Id { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
+
+        public Image ConnectedLargeImage { get; } = null;
+        public Image ConnectedSmallImage { get; } = null;
+        public Image DisconnectedLargeImage { get; } = null;
+        public Image DisconnectedSmallImage { get; } = null;
+
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
         public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
@@ -59,7 +65,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                         if (token.IsCancellationRequested)
                             break;
                         OnMessageReady?.Invoke(this,
-                            new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, ID));
+                            new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
                     }
                 }
                 catch (Exception e)
@@ -74,7 +80,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         {
             gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
             cts?.Cancel();
-            OnDisconnected?.Invoke(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, ID));
+            OnDisconnected?.Invoke(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             cts = new CancellationTokenSource();
             return consumer.Stop();
         }
