@@ -16,13 +16,13 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
-        public string OptionalTitle { get; } = "Connect to gRPC Log Server";
-        public Guid Id { get; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
+        public string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
+        public Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
 
-        public Image ConnectedLargeImage { get; } = null;
-        public Image ConnectedSmallImage { get; } = null;
-        public Image DisconnectedLargeImage { get; } = null;
-        public Image DisconnectedSmallImage { get; } = null;
+        public Image ConnectedLargeImage { get; set; } = null;
+        public Image ConnectedSmallImage { get; set; } = null;
+        public Image DisconnectedLargeImage { get; set; } = null;
+        public Image DisconnectedSmallImage { get; set; } = null;
 
         public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
         public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
