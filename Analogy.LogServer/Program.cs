@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using Analogy.LogServer.Services;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
@@ -8,22 +10,40 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace Analogy.LogServer
 {
     public class Program
     {
-        public static void Main()
+        public static async Task Main()
         {
 
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))
+                .AddJsonFile("appsettings_LogServer.json").Build();
 
-            CreateHostBuilder().Build().Run();
-            GrpcEnvironment.KillServersAsync();
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
 
+            try
+            {
+                Log.Information("Starting Analogy Log Server");
+                await CreateHostBuilder().Build().RunAsync();
+                await GrpcEnvironment.ShutdownChannelsAsync();
+                await GrpcEnvironment.KillServersAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e, "Error during application");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
-        public static IHostBuilder CreateHostBuilder() =>
-            Host.CreateDefaultBuilder()
+        private static IHostBuilder CreateHostBuilder() =>
+            Host.CreateDefaultBuilder().UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                {
                    var config = new ConfigurationBuilder()
