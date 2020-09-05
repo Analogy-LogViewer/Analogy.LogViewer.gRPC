@@ -16,42 +16,42 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
-        public string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
-        public Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
+        public virtual string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
+        public virtual Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
 
-        public Image ConnectedLargeImage { get; set; } = null;
-        public Image ConnectedSmallImage { get; set; } = null;
-        public Image DisconnectedLargeImage { get; set; } = null;
-        public Image DisconnectedSmallImage { get; set; } = null;
+        public virtual Image ConnectedLargeImage { get; set; } = null;
+        public virtual Image ConnectedSmallImage { get; set; } = null;
+        public virtual Image DisconnectedLargeImage { get; set; } = null;
+        public virtual Image DisconnectedSmallImage { get; set; } = null;
 
-        public event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
-        public event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
-        public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
+        public virtual event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
+        public virtual event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
+        public virtual event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
         private AnalogyMessageConsumer consumer;
-        public IAnalogyOfflineDataProvider FileOperationsHandler { get; } = null;
-        public bool UseCustomColors { get; set; } = false;
-        public IEnumerable<(string originalHeader, string replacementHeader)> GetReplacementHeaders()
+        public virtual IAnalogyOfflineDataProvider FileOperationsHandler { get; set; } = null;
+        public virtual bool UseCustomColors { get; set; } = false;
+        public virtual IEnumerable<(string originalHeader, string replacementHeader)> GetReplacementHeaders()
             => Array.Empty<(string, string)>();
 
-        public (Color backgroundColor, Color foregroundColor) GetColorForMessage(IAnalogyLogMessage logMessage)
+        public virtual (Color backgroundColor, Color foregroundColor) GetColorForMessage(IAnalogyLogMessage logMessage)
             => (Color.Empty, Color.Empty);
 
-        public Task InitializeDataProviderAsync(IAnalogyLogger logger)
+        public virtual Task InitializeDataProviderAsync(IAnalogyLogger logger)
         {
             LogManager.Instance.SetLogger(logger);
             cts = new CancellationTokenSource();
             return Task.CompletedTask;
 
         }
-        public async Task<bool> CanStartReceiving() => await Task.FromResult(true);
+        public virtual async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
 
-        public void MessageOpened(Interfaces.AnalogyLogMessage message)
+        public virtual void MessageOpened(Interfaces.AnalogyLogMessage message)
         {
             //nop
         }
         void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
-        public Task StartReceiving()
+        public virtual Task StartReceiving()
         {
             consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress);
             cts = new CancellationTokenSource();
@@ -76,7 +76,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             return Task.CompletedTask;
         }
 
-        public Task StopReceiving()
+        public virtual Task StopReceiving()
         {
             gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
             cts?.Cancel();
