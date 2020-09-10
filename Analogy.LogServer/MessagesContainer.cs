@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,10 +32,7 @@ namespace Analogy.LogServer
                     {
 
                         _sync.EnterReadLock();
-                        foreach (ILogConsumer consumer in _consumers)
-                        {
-                            await consumer.ConsumeLog(msg);
-                        }
+                        await Task.WhenAll(_consumers.Select(c => c.ConsumeLog(msg)));
                     }
                     finally
                     {
