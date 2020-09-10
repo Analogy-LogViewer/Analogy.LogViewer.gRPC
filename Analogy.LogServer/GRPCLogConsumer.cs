@@ -14,6 +14,7 @@ namespace Analogy.LogServer
         private readonly ILogger<GRPCLogConsumer> _logger;
         private List<(IServerStreamWriter<AnalogyLogMessage> stream, bool active)> clients;
         private readonly ReaderWriterLockSlim _sync = new ReaderWriterLockSlim();
+        private static readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
 
         public GRPCLogConsumer(ILogger<GRPCLogConsumer> logger)
         {
@@ -43,12 +44,17 @@ namespace Analogy.LogServer
                 if (!active) continue;
                 try
                 {
+                    await _semaphoreSlim.WaitAsync();
                     await stream.WriteAsync(msg);
                 }
                 catch (Exception e)
                 {
                     clients[i] = (stream, false);
                     _logger.LogDebug(e, "Error sending message");
+                }
+                finally
+                {
+                    _semaphoreSlim.Release();
                 }
             }
         }

@@ -22,6 +22,8 @@ namespace Analogy.LogServer.Clients
         private AsyncClientStreamingCall<AnalogyLogMessage, AnalogyMessageReply> stream;
         private ILogger _logger;
         private bool connected = true;
+        private static readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
+
         static AnalogyMessageProducer()
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
@@ -74,6 +76,7 @@ namespace Analogy.LogServer.Clients
 
             try
             {
+                await _semaphoreSlim.WaitAsync();
                 await stream.RequestStream.WriteAsync(m);
 
             }
@@ -81,6 +84,10 @@ namespace Analogy.LogServer.Clients
             {
                 connected = false;
                 _logger?.LogError(e, "Error sending message to gRPC Server");
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
             }
         }
         public void StopReceiving()
@@ -100,8 +107,16 @@ namespace Analogy.LogServer.Clients
 
         public void Dispose()
         {
-            channel?.Dispose();
-            stream?.Dispose();
+            try
+            {
+                _semaphoreSlim.Dispose();
+                channel?.Dispose();
+                stream?.Dispose();
+            }
+            catch (Exception e)
+            {
+                _logger?.LogError(e, "Error during dispose");
+            }
         }
     }
 }
