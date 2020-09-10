@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogServer.Tests
 {
@@ -12,14 +11,9 @@ namespace Analogy.LogServer.Tests
     {
         private bool producing;
         private bool consuming;
-        private ILogger<TestForm> Logger { get; set; }
         public TestForm()
         {
             InitializeComponent();
-        }
-        public TestForm(ILogger<TestForm> logger) : this()
-        {
-            Logger = logger;
         }
 
         private async void btnProducer_Click(object sender, EventArgs e)
@@ -28,10 +22,10 @@ namespace Analogy.LogServer.Tests
             producing = true;
             btnProducer.Enabled = false;
             var p = new AnalogyMessageProducer($"http://{txtIP.Text}:6000", null);
-            var ai = new Dictionary<string, string> { { "some key", "some value" } };
+            var ai = new Dictionary<string, string> {{"some key", "some value"}};
             for (int i = 0; i < 100000; i++)
             {
-                await p.Log(text: "test " + i, source: "none", additionalInformation: ai, level: AnalogyLogLevel.Event).ConfigureAwait(false);
+                await p.Log(text: "test " + i, source: "none", additionalInformation: ai, level:AnalogyLogLevel.Event).ConfigureAwait(false);
                 await Task.Delay(500).ConfigureAwait(false);
             }
 
@@ -49,11 +43,6 @@ namespace Analogy.LogServer.Tests
             //    richTextBox1.Text += Environment.NewLine + m;
             //consuming = false;
             //btnConsumer.Enabled = true;
-        }
-
-        private void btnProducerViaLogger_Click(object sender, EventArgs e)
-        {
-            Logger.LogInformation("test:" + DateTime.Now);
         }
     }
 }

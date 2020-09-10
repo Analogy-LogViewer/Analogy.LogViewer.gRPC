@@ -30,12 +30,11 @@
         {
             this.btnProducer = new System.Windows.Forms.Button();
             this.txtIP = new System.Windows.Forms.TextBox();
-            this.btnProducerLogger = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnProducer
             // 
-            this.btnProducer.Location = new System.Drawing.Point(15, 12);
+            this.btnProducer.Location = new System.Drawing.Point(12, 12);
             this.btnProducer.Name = "btnProducer";
             this.btnProducer.Size = new System.Drawing.Size(166, 54);
             this.btnProducer.TabIndex = 0;
@@ -51,22 +50,11 @@
             this.txtIP.TabIndex = 1;
             this.txtIP.Text = "localhost";
             // 
-            // btnProducerLogger
-            // 
-            this.btnProducerLogger.Location = new System.Drawing.Point(15, 72);
-            this.btnProducerLogger.Name = "btnProducerLogger";
-            this.btnProducerLogger.Size = new System.Drawing.Size(166, 54);
-            this.btnProducerLogger.TabIndex = 0;
-            this.btnProducerLogger.Text = "Produce Messages Via Logger";
-            this.btnProducerLogger.UseVisualStyleBackColor = true;
-            this.btnProducerLogger.Click += new System.EventHandler(this.btnProducerViaLogger_Click);
-            // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 163);
-            this.Controls.Add(this.btnProducerLogger);
+            this.ClientSize = new System.Drawing.Size(585, 76);
             this.Controls.Add(this.txtIP);
             this.Controls.Add(this.btnProducer);
             this.Name = "TestForm";
@@ -80,7 +68,6 @@
 
         private System.Windows.Forms.Button btnProducer;
         private System.Windows.Forms.TextBox txtIP;
-        private System.Windows.Forms.Button btnProducerLogger;
     }
 }
 
