@@ -22,7 +22,7 @@ The following modules exists:
 | [Analogy.LogViewer.gRPC](https://www.nuget.org/packages/Analogy.LogViewer.gRPC/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogViewer.gRPC)](https://www.nuget.org/packages/Analogy.LogViewer.gRPC/) | Primary Analogy Log Viewer grRPC providers |
 | [Analogy.LogServer](https://www.nuget.org/packages/Analogy.LogServer/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogServer)](https://www.nuget.org/packages/Analogy.LogServer/) | A windows Service for receiving logs |
 | [Analogy.LogServer.Clients](https://www.nuget.org/packages/Analogy.LogServer.Clients/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogServer.Clients)](https://www.nuget.org/packages/Analogy.LogServer.Clients) | gRPC client to pull back messages from Analogy Service |
-
+| [[Analogy.AspNetCore.LogProvider](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.AspNetCore.LogProvider)](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider) | AspNetCore Logger provider |
 
 With Analogy Log Service you can have multiple executables sending messages to the log service and have Analogy Log Viewer consume those messages:
 ![Example](./Assets/Analogy.LogService.gif)
@@ -33,8 +33,12 @@ To install Analogy Log Server as windows service use the following command line:
 
 
 ## Usage
-Once you have setup Analogy Log Server you can start sending messages to it:
-Add Nuget package [Analogy.AspNetCore.LogProvider](Analogy.AspNetCore.LogProvider) and then add to the Configure method the following in te Startup.cs
+Once you have setup Analogy Log Server you can start sending messages to it
+1. Use [Nlog Target](https://github.com/Analogy-LogViewer/Analogy.LogViewer.NLog.Targets)
+or
+2. Use [Serilog Sink](https://github.com/Analogy-LogViewer/Analogy.LogViewer.Serilog)
+or
+3. Add Nuget package [Analogy.AspNetCore.LogProvider](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider/) and then add to the Configure method the following in te Startup.cs
 
 ```csharp
 
