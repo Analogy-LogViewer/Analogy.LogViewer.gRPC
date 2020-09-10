@@ -30,3 +30,23 @@ With Analogy Log Service you can have multiple executables sending messages to t
 
 To install Analogy Log Server as windows service use the following command line:
 > sc create Analogy.LogServer binpath=full path to Analogy.LogServer.exe file
+
+
+## Usage
+Once you have setup Analogy Log Server you can start sending messages to it:
+Add Nuget package [Analogy.AspNetCore.LogProvider](Analogy.AspNetCore.LogProvider) and then add to the Configure method the following in te Startup.cs
+
+```csharp
+
+ public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+ {
+     loggerFactory.AddAnalogyLogger(new AnalogyLoggerConfiguration
+     {
+         LogLevel = LogLevel.Trace,
+         EventId = 0,
+         AnalogyServerUrl = "http://localhost:6000"
+      });
+     }
+
+```
+
