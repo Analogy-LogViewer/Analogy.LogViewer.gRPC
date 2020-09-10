@@ -15,11 +15,12 @@ namespace Analogy.LogServer
         private readonly List<ILogConsumer> _consumers;
         private ILogger<MessagesContainer> _logger;
         private readonly ReaderWriterLockSlim _sync = new ReaderWriterLockSlim();
-
-        public MessagesContainer(ILogger<MessagesContainer> logger)
+        public MessagesContainer(CommonSystemConfiguration serviceConfiguration, ILogger<MessagesContainer> logger)
         {
-            _logger = logger;
             _consumers = new List<ILogConsumer>();
+            if (serviceConfiguration.LogAlsoToLogFile)
+                _consumers.Add(new LogFileConsumer(logger));
+            _logger = logger;
             messages = new BlockingCollection<AnalogyLogMessage>();
 
             _consumer = Task.Factory.StartNew(async () =>
@@ -28,6 +29,7 @@ namespace Analogy.LogServer
                 {
                     try
                     {
+
                         _sync.EnterReadLock();
                         foreach (ILogConsumer consumer in _consumers)
                         {

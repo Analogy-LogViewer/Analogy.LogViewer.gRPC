@@ -18,7 +18,7 @@ namespace Analogy.LogServer
     {
         public static async Task Main()
         {
-
+            Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location))
                 .AddJsonFile("appsettings_LogServer.json").Build();
