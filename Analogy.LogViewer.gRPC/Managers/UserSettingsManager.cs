@@ -31,7 +31,7 @@ namespace Analogy.LogViewer.gRPC.Managers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.Instance.LogException(ex, "Analogy gRPC Parser", "Error loading user setting file");
+                    LogManager.Instance.LogException("Error loading user setting file",ex, "Analogy gRPC Parser");
                     Settings = new GRPCSettings();
 
                 }

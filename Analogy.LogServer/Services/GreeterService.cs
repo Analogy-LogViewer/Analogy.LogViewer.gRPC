@@ -51,7 +51,7 @@ namespace Analogy.LogServer.Services
                 Category = "Server Message",
                 Text = "Connection Established",
                 Class = AnalogyLogClass.General.ToString(),
-                Level = AnalogyLogLevel.AnalogyInformation.ToString(),
+                Level = AnalogyLogLevel.Analogy.ToString(),
                 Date = Timestamp.FromDateTime(DateTime.UtcNow),
                 FileName = "",
                 Id = Guid.NewGuid().ToString(),

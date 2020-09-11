@@ -70,7 +70,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                 }
                 catch (Exception e)
                 {
-                    LogManager.Instance.LogError(nameof(gRPCReceiverClient), "Error: " + e.Message);
+                    LogManager.Instance.LogError("Error: " + e.Message,nameof(gRPCReceiverClient));
                 }
             });
             return Task.CompletedTask;
