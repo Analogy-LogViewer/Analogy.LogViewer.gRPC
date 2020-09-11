@@ -13,12 +13,13 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.2.2</Version>
+		<Version>1.2.3</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
 		<PackageIcon>Analogy.gRPC2.png</PackageIcon>
 		<Description>gRPC Real Time Receiver  for Analogy Log Viewer</Description>
+		<FileVersion>1.2.3.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

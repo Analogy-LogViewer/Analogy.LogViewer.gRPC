@@ -28,19 +28,19 @@ namespace Analogy.LogViewer.gRPC.Managers
 
 
                     case AnalogyLogLevel.Debug:
-                        logger.LogDebug(source, message, memberName, lineNumber, filePath);
+                        logger.LogDebug(message,source, memberName, lineNumber, filePath);
                         break;
                     case AnalogyLogLevel.Information:
-                        logger.LogInformation(source, message, memberName, lineNumber, filePath);
+                        logger.LogInformation(message, source, memberName, lineNumber, filePath);
                         break;
                     case AnalogyLogLevel.Warning:
-                        logger.LogWarning(source, message, memberName, lineNumber, filePath);
+                        logger.LogWarning(message, source, memberName, lineNumber, filePath);
                         break;
                     case AnalogyLogLevel.Error:
-                        logger.LogError(source, message, memberName, lineNumber, filePath);
+                        logger.LogError(message, source, memberName, lineNumber, filePath);
                         break;
                     case AnalogyLogLevel.Critical:
-                        logger.LogCritical(source, message, memberName, lineNumber, filePath);
+                        logger.LogCritical(message, source, memberName, lineNumber, filePath);
                         break;
                     case AnalogyLogLevel.Analogy:
                     case AnalogyLogLevel.None:
