@@ -20,21 +20,23 @@ namespace Analogy.LogServer
         {
             switch (msg.Level)
             {
-                case "Unknown":
-                    break;
+
                 case "Disabled":
+                case "None":
                     break;
                 case "Trace":
                     logger.LogTrace(msg.Text);
                     break;
                 case "Verbose":
+                case "Unknown":
+                case "Event":
+                case "Information":
+                case "AnalogyInformation":
+                case "Analogy":
                     logger.LogInformation(msg.Text);
                     break;
                 case "Debug":
                     logger.LogDebug(msg.Text);
-                    break;
-                case "Event":
-                    logger.LogInformation(msg.Text);
                     break;
                 case "Warning":
                     logger.LogWarning(msg.Text);
@@ -42,11 +44,9 @@ namespace Analogy.LogServer
                 case "Error":
                     logger.LogError(msg.Text);
                     break;
+                case "Fatal":
                 case "Critical":
                     logger.LogCritical(msg.Text);
-                    break;
-                case "AnalogyInformation":
-                    logger.LogInformation(msg.Text);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
