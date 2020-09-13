@@ -15,21 +15,19 @@ namespace Analogy.LogServer
         private readonly List<ILogConsumer> _consumers;
         private ILogger<MessagesContainer> _logger;
         private readonly ReaderWriterLockSlim _sync = new ReaderWriterLockSlim();
-        public MessagesContainer(CommonSystemConfiguration serviceConfiguration, ILogger<MessagesContainer> logger)
+        public MessagesContainer(CommonSystemConfiguration serviceConfiguration, GRPCLogConsumer grpcLogConsumer, ILogger<MessagesContainer> logger)
         {
-            _consumers = new List<ILogConsumer>();
+            _consumers = new List<ILogConsumer> {grpcLogConsumer};
             if (serviceConfiguration.LogAlsoToLogFile)
                 _consumers.Add(new LogFileConsumer(logger));
             _logger = logger;
             messages = new BlockingCollection<AnalogyLogMessage>();
-
             _consumer = Task.Factory.StartNew(async () =>
             {
                 foreach (var msg in messages.GetConsumingEnumerable())
                 {
                     try
                     {
-
                         _sync.EnterReadLock();
                         foreach (ILogConsumer consumer in _consumers)
                         {
@@ -50,9 +48,12 @@ namespace Analogy.LogServer
         {
             try
             {
-                _logger.LogInformation("Add new consumer: {consumer}", consumer);
                 _sync.EnterWriteLock();
-                _consumers.Add(consumer);
+                if (!_consumers.Contains(consumer))
+                {
+                    _logger.LogInformation("Add new consumer: {consumer}", consumer);
+                    _consumers.Add(consumer);
+                }
             }
             finally
             {

@@ -20,7 +20,6 @@ namespace Analogy.LogServer.Services
             _grpcLogConsumer = grpcLogConsumer;
             Logger = logger;
             MessageContainer = messageContainer;
-            messageContainer.AddConsumer(_grpcLogConsumer);
         }
 
         public override async Task<AnalogyMessageReply> SubscribeForSendMessages(
@@ -38,7 +37,6 @@ namespace Analogy.LogServer.Services
             {
                 Logger.LogInformation(ex.Message);
             }
-
             Logger.LogInformation("Subscription finished.");
             return new AnalogyMessageReply { Message = "Reply at " + DateTime.Now };
         }

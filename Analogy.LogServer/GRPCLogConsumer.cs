@@ -36,26 +36,53 @@ namespace Analogy.LogServer
             }
         }
 
+        public void RemoveGrpcConsumer(IServerStreamWriter<AnalogyLogMessage> responseStream)
+        {
+            try
+            {
+                _logger.LogInformation("Removing client with message: {message}");
+                _sync.EnterWriteLock();
+                var exist = clients.Exists(c => c.stream == responseStream);
+                if (exist)
+                    clients.RemoveAll(c => c.stream == responseStream);
+
+            }
+            finally
+            {
+                _sync.ExitWriteLock();
+            }
+        }
+
         public async Task ConsumeLog(AnalogyLogMessage msg)
         {
-            for (int i = 0; i < clients.Count; i++)
+            try
             {
-                var (stream, active) = clients[i];
-                if (!active) continue;
-                try
+
+
+                _sync.EnterReadLock();
+                for (int i = 0; i < clients.Count; i++)
                 {
-                    await _semaphoreSlim.WaitAsync();
-                    await stream.WriteAsync(msg);
+                    var (stream, active) = clients[i];
+                    if (!active) continue;
+                    try
+                    {
+                        await _semaphoreSlim.WaitAsync();
+                        await stream.WriteAsync(msg);
+                    }
+                    catch (Exception e)
+                    {
+                        clients[i] = (stream, false);
+                        _logger.LogDebug(e, "Error sending message");
+                    }
+                    finally
+                    {
+                        _semaphoreSlim.Release();
+                    }
                 }
-                catch (Exception e)
-                {
-                    clients[i] = (stream, false);
-                    _logger.LogDebug(e, "Error sending message");
-                }
-                finally
-                {
-                    _semaphoreSlim.Release();
-                }
+            }
+            finally
+            {
+                _sync.ExitReadLock();
             }
         }
 
