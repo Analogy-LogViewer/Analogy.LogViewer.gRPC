@@ -39,10 +39,8 @@ namespace Analogy.LogServer.Clients
                 {
                     Id = Guid.Parse((ReadOnlySpan<char>)m.Id),
                     Category = m.Category,
-                    Class = (AnalogyLogClass)Enum.Parse(typeof(AnalogyLogClass), m.Class),
                     Date = m.Date.ToDateTime().ToLocalTime(),
                     FileName = m.FileName,
-                    Level = (AnalogyLogLevel)Enum.Parse(typeof(AnalogyLogLevel), m.Level),
                     LineNumber = m.LineNumber,
                     MachineName = m.MachineName,
                     MethodName = m.MethodName,
@@ -53,6 +51,24 @@ namespace Analogy.LogServer.Clients
                     ThreadId = m.ThreadId,
                     User = m.User
                 };
+                if (Enum.TryParse(m.Level, out AnalogyLogLevel all))
+                {
+                    msg.Level = all;
+                }
+                else
+                {
+                    msg.Level = AnalogyLogLevel.Unknown;
+                    m.Text += $" [Unknown log level: {m.Level}]";
+                }
+                if (Enum.TryParse(m.Class, out AnalogyLogClass alc))
+                {
+                    msg.Class = alc;
+                }
+                else
+                {
+                    msg.Class = AnalogyLogClass.General;
+                    m.Text += $" [Unknown log class: {m.Class}]";
+                }
                 yield return msg;
                 if (token.IsCancellationRequested)
                     yield break;
