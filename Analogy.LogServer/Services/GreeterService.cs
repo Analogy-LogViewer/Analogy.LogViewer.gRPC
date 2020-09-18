@@ -81,6 +81,13 @@ namespace Analogy.LogServer.Services
                 {
                     try
                     {
+                        if (message.Date == null)
+                        {
+                            message.Date = Timestamp.FromDateTime(DateTime.UtcNow);
+                        }
+
+                        if (string.IsNullOrEmpty(message.Id))
+                            message.Id = Guid.NewGuid().ToString();
                         MessageContainer.AddMessage(message);
                     }
                     catch (Exception e)
