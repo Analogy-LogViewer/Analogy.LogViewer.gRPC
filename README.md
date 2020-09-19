@@ -23,6 +23,8 @@ The following modules exists:
 | [Analogy.LogServer](https://www.nuget.org/packages/Analogy.LogServer/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogServer)](https://www.nuget.org/packages/Analogy.LogServer/) | A windows Service for receiving logs |
 | [Analogy.LogServer.Clients](https://www.nuget.org/packages/Analogy.LogServer.Clients/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogServer.Clients)](https://www.nuget.org/packages/Analogy.LogServer.Clients) | gRPC client to pull back messages from Analogy Service |
 | [Analogy.AspNetCore.LogProvider](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider/) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.AspNetCore.LogProvider)](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider) | AspNetCore Logger provider |
+| [NLog Target](https://github.com/Analogy-LogViewer/Analogy.LogViewer.NLog.Targets) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogViewer.NLog.Targets)](https://www.nuget.org/packages/Analogy.LogViewer.NLog.Targets) | NLog target to stream logs to Analogy |
+| [Serilog Sink](https://github.com/Analogy-LogViewer/Analogy.LogViewer.Serilog.Sinks) |   [![Nuget](https://img.shields.io/nuget/v/Analogy.LogViewer.Serilog.Sinks)](https://www.nuget.org/packages/Analogy.LogViewer.Serilog.Sinks) | Serilog Sink for sending logs to Analogy |
 
 With Analogy Log Service you can have multiple executables sending messages to the log service and have Analogy Log Viewer consume those messages:
 ![Example](./Assets/Analogy.LogService.gif)
