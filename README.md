@@ -89,7 +89,7 @@ Add nuget [Analogy.LogViewer.Serilog.Sinks](https://www.nuget.org/packages/Analo
 
 
 - Analogy.AspNetCore.LogProvider:
-Add Nuget package [Analogy.AspNetCore.LogProvider](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider/) and then add to the Configure method the following in te Startup.cs
+Add Nuget package [Analogy.AspNetCore.LogProvider](https://www.nuget.org/packages/Analogy.AspNetCore.LogProvider/) and then add to the Configure method (in  Startup.cs) the following: 
 
 ```csharp
 
