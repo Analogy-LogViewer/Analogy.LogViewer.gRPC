@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.Interfaces.Factories;
+using Analogy.LogViewer.gRPC.SelfHosting;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {

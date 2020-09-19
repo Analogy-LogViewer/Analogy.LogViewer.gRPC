@@ -22,10 +22,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.3.4" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.7.2" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.31.0" />
@@ -66,5 +62,7 @@
 	    <PackagePath></PackagePath>
 	  </None>
 	</ItemGroup>
-
+	<ItemGroup>
+		<Protobuf Include="SelfHosting\Protos\greet.proto" GrpcServices="Server" />
+	</ItemGroup>
 </Project>
