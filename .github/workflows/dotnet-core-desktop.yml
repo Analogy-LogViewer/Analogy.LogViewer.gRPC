@@ -94,10 +94,10 @@ jobs:
         run: |
           Get-ChildItem .\artifactory\Analogy.LogViewer.gRPC\bin\Release -Filter *.nupkg |
           Where-Object { !$_.Name.Contains('preview') } |
-          ForEach-Object { nuget push $_  -Source "GPR" -SkipDuplicate } |
+          ForEach-Object { nuget push $_  -Source "GPR" -SkipDuplicate } 
           Get-ChildItem .\artifactory\Analogy.LogServer.Clients\bin\Release -Filter *.nupkg |
           Where-Object { !$_.Name.Contains('preview') } |
-          ForEach-Object { nuget push $_  -Source "GPR" -SkipDuplicate } |
+          ForEach-Object { nuget push $_  -Source "GPR" -SkipDuplicate } 
           Get-ChildItem .\artifactory\Analogy.LogServer\bin\Release -Filter *.nupkg |
           Where-Object { !$_.Name.Contains('preview') } |
           ForEach-Object { nuget push $_  -Source "GPR" -SkipDuplicate }  
