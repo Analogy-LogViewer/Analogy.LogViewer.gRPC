@@ -12,6 +12,11 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
     public class gRPCFactory : IAnalogyFactory
     {
         internal static readonly Guid Id = new Guid("9bd37cc2-daa7-4d17-974c-01ef3f3c79ba");
+        public void RegisterNotificationCallback(INotificationReporter notificationReporter)
+        {
+            
+        }
+
         public Guid FactoryId { get; set; } = Id;
 
         public string Title { get; set; } = "gRPC Receiver";
