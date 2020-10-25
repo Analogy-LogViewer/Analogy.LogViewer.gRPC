@@ -13,17 +13,20 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.4.2.1</Version>
+		<Version>1.4.3</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
 		<PackageIcon>Analogy.gRPC2.png</PackageIcon>
 		<Description>gRPC Real Time Receiver for Analogy Log Viewer</Description>
+		<Nullable>enable</Nullable>
+		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.4.2" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.7.9.5" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="1.6.10" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
 		<PackageReference Include="Grpc.Core" Version="2.32.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />

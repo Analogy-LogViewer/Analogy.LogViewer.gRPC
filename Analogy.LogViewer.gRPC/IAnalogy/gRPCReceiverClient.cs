@@ -7,51 +7,31 @@ using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
+using Analogy.LogViewer.Template;
 using Grpc.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCReceiverClient : IAnalogyRealTimeDataProvider
+    public class gRPCReceiverClient : OnlineDataProvider
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
-        public virtual string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
-        public virtual Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
+        public override string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
+        public override Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
 
-        public virtual Image ConnectedLargeImage { get; set; } = null;
-        public virtual Image ConnectedSmallImage { get; set; } = null;
-        public virtual Image DisconnectedLargeImage { get; set; } = null;
-        public virtual Image DisconnectedSmallImage { get; set; } = null;
-
-        public virtual event EventHandler<AnalogyDataSourceDisconnectedArgs> OnDisconnected;
-        public virtual event EventHandler<AnalogyLogMessageArgs> OnMessageReady;
-        public virtual event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
         private AnalogyMessageConsumer consumer;
-        public virtual IAnalogyOfflineDataProvider FileOperationsHandler { get; set; } = null;
-        public virtual bool UseCustomColors { get; set; } = false;
-        public virtual IEnumerable<(string originalHeader, string replacementHeader)> GetReplacementHeaders()
-            => Array.Empty<(string, string)>();
 
-        public virtual (Color backgroundColor, Color foregroundColor) GetColorForMessage(IAnalogyLogMessage logMessage)
-            => (Color.Empty, Color.Empty);
-
-        public virtual Task InitializeDataProviderAsync(IAnalogyLogger logger)
+        public override Task InitializeDataProviderAsync(IAnalogyLogger logger)
         {
             LogManager.Instance.SetLogger(logger);
             cts = new CancellationTokenSource();
-            return Task.CompletedTask;
+            return base.InitializeDataProviderAsync(logger);
 
         }
-        public virtual async Task<bool> CanStartReceiving() => await Task.FromResult(true);
+        public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
-
-        public virtual void MessageOpened(Interfaces.AnalogyLogMessage message)
-        {
-            //nop
-        }
-        void OnInstanceOnOnMessageReady(object s, AnalogyLogMessageArgs e) => OnMessageReady?.Invoke(s, e);
-        public virtual Task StartReceiving()
+        public override Task StartReceiving()
         {
             consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress);
             cts = new CancellationTokenSource();
@@ -64,8 +44,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                     {
                         if (token.IsCancellationRequested)
                             break;
-                        OnMessageReady?.Invoke(this,
-                            new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
+                        MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
                     }
                 }
                 catch (Exception e)
@@ -76,11 +55,10 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             return Task.CompletedTask;
         }
 
-        public virtual Task StopReceiving()
+        public override Task StopReceiving()
         {
-            gRPCReporter.Instance.OnMessageReady -= OnInstanceOnOnMessageReady;
             cts?.Cancel();
-            OnDisconnected?.Invoke(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
+            Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             cts = new CancellationTokenSource();
             return consumer.Stop();
         }
