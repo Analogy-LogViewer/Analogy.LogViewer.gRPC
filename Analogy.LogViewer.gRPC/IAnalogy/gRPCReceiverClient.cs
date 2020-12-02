@@ -43,7 +43,10 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                     await foreach (var message in consumer.GetMessages().WithCancellation(token))
                     {
                         if (token.IsCancellationRequested)
+                        {
                             break;
+                        }
+
                         MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
                     }
                 }

@@ -89,7 +89,10 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                         }
 
                         if (string.IsNullOrEmpty(message.Id))
+                        {
                             message.Id = Guid.NewGuid().ToString();
+                        }
+
                         MessageContainer.AddMessage(message);
                     }
                     catch (Exception e)
