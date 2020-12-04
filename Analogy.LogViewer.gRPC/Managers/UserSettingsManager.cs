@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Analogy.LogViewer.gRPC.Managers
 {
@@ -12,7 +9,7 @@ namespace Analogy.LogViewer.gRPC.Managers
         private static readonly Lazy<UserSettingsManager> _instance =
             new Lazy<UserSettingsManager>(() => new UserSettingsManager());
         public static UserSettingsManager UserSettings { get; set; } = _instance.Value;
-        public string gRPCFileSetting { get; private set; } = "AnalogyGRPCSettings.json";
+        public string gRPCFileSetting { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Analogy.LogViewer", "AnalogyGRPCSettings.json");
         public GRPCSettings Settings { get; set; }
 
 
@@ -31,7 +28,7 @@ namespace Analogy.LogViewer.gRPC.Managers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.Instance.LogException("Error loading user setting file",ex, "Analogy gRPC Parser");
+                    LogManager.Instance.LogException("Error loading user setting file", ex, "Analogy gRPC Parser");
                     Settings = new GRPCSettings();
 
                 }
@@ -42,5 +39,18 @@ namespace Analogy.LogViewer.gRPC.Managers
             }
 
         }
+        public void Save()
+        {
+            try
+            {
+                File.WriteAllText(gRPCFileSetting, JsonConvert.SerializeObject(Settings));
+            }
+            catch (Exception ex)
+            {
+                LogManager.Instance.LogCritical("", $"Unable to save file {gRPCFileSetting}: {ex}");
+
+            }
+        }
     }
+
 }
