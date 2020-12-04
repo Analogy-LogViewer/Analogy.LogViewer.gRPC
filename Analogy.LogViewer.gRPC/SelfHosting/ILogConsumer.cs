@@ -7,6 +7,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 {
     public interface ILogConsumer
     {
-        Task ConsumeLog(AnalogyLogMessage msg);
+        Task ConsumeLog(AnalogyGRPCLogMessage msg);
     }
 }

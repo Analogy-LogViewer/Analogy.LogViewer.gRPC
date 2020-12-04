@@ -1,53 +1,56 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
     public class MessagesContainer
     {
-        private readonly BlockingCollection<AnalogyLogMessage> messages;
+        private readonly BlockingCollection<AnalogyGRPCLogMessage> messages;
 
         private Task _consumer;
         private readonly List<ILogConsumer> _consumers;
         private ILogger<MessagesContainer> _logger;
-        private readonly ReaderWriterLockSlim _sync = new ReaderWriterLockSlim();
+        private static readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1);
         public MessagesContainer(GRPCLogConsumer grpcLogConsumer, ILogger<MessagesContainer> logger)
         {
-            _consumers = new List<ILogConsumer> { grpcLogConsumer };
             _logger = logger;
-            messages = new BlockingCollection<AnalogyLogMessage>();
+            _consumers = new List<ILogConsumer>();
+            AddConsumer(grpcLogConsumer);
+            AddConsumer(new AnalogyConsumer());
+            messages = new BlockingCollection<AnalogyGRPCLogMessage>();
             _consumer = Task.Factory.StartNew(async () =>
             {
                 foreach (var msg in messages.GetConsumingEnumerable())
                 {
                     try
                     {
-                        _sync.EnterReadLock();
-                        foreach (ILogConsumer consumer in _consumers)
-                        {
-                            await consumer.ConsumeLog(msg);
-                        }
+                        await _semaphoreSlim.WaitAsync();
+                        await Task.WhenAll(_consumers.Select(c => c.ConsumeLog(msg)).ToArray());
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e, "Error publishing message");
                     }
                     finally
                     {
-                        _sync.ExitReadLock();
+                        _semaphoreSlim.Release();
                     }
                 }
             });
         }
 
-        public void AddMessage(AnalogyLogMessage m) => messages.Add(m);
+        public void AddMessage(AnalogyGRPCLogMessage m) => messages.Add(m);
 
         public void AddConsumer(ILogConsumer consumer)
         {
             try
             {
-                _sync.EnterWriteLock();
+                _semaphoreSlim.Wait();
                 if (!_consumers.Contains(consumer))
                 {
                     _logger.LogInformation("Add new consumer: {consumer}", consumer);
@@ -56,7 +59,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             }
             finally
             {
-                _sync.ExitWriteLock();
+                _semaphoreSlim.Release();
             }
         }
 
@@ -64,12 +67,12 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         {
             try
             {
-                _sync.EnterWriteLock();
+                _semaphoreSlim.Wait();
                 _consumers.Remove(consumer);
             }
             finally
             {
-                _sync.ExitWriteLock();
+                _semaphoreSlim.Release();
             }
         }
 

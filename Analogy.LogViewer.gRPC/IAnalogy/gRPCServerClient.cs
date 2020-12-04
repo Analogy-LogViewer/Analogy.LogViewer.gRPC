@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Analogy.Interfaces;
+﻿using Analogy.Interfaces;
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template;
-using Grpc.Core;
-using Microsoft.Extensions.Hosting;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCReceiverClient : OnlineDataProvider
+    public class gRPCServerClient : OnlineDataProvider
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
@@ -52,7 +48,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                 }
                 catch (Exception e)
                 {
-                    LogManager.Instance.LogError("Error: " + e.Message,nameof(gRPCReceiverClient));
+                    LogManager.Instance.LogError("Error: " + e.Message, nameof(gRPCServerClient));
                 }
             });
             return Task.CompletedTask;
