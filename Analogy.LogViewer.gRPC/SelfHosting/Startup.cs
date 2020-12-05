@@ -40,7 +40,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGet("/", async context =>
                 {
