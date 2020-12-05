@@ -51,15 +51,15 @@ namespace Analogy.LogViewer.gRPC
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(168, 20);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Self Hosting Server URL:";
+            this.label2.Text = "Self Hosting Server Port:";
             // 
             // txtbRealTimeServerURL
             // 
             this.txtbRealTimeServerURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbRealTimeServerURL.Location = new System.Drawing.Point(288, 10);
+            this.txtbRealTimeServerURL.Location = new System.Drawing.Point(434, 10);
             this.txtbRealTimeServerURL.Name = "txtbRealTimeServerURL";
-            this.txtbRealTimeServerURL.Size = new System.Drawing.Size(312, 27);
+            this.txtbRealTimeServerURL.Size = new System.Drawing.Size(517, 27);
             this.txtbRealTimeServerURL.TabIndex = 2;
             this.txtbRealTimeServerURL.TextChanged += new System.EventHandler(this.txtbRealTimeServerURL_TextChanged);
             // 
@@ -67,9 +67,9 @@ namespace Analogy.LogViewer.gRPC
             // 
             this.txtbSelfHostingServerURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtbSelfHostingServerURL.Location = new System.Drawing.Point(288, 43);
+            this.txtbSelfHostingServerURL.Location = new System.Drawing.Point(434, 43);
             this.txtbSelfHostingServerURL.Name = "txtbSelfHostingServerURL";
-            this.txtbSelfHostingServerURL.Size = new System.Drawing.Size(312, 27);
+            this.txtbSelfHostingServerURL.Size = new System.Drawing.Size(517, 27);
             this.txtbSelfHostingServerURL.TabIndex = 3;
             this.txtbSelfHostingServerURL.TextChanged += new System.EventHandler(this.txtbSelfHostingServerURL_TextChanged);
             // 
@@ -82,7 +82,7 @@ namespace Analogy.LogViewer.gRPC
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "grpcUserSettingsUC";
-            this.Size = new System.Drawing.Size(618, 374);
+            this.Size = new System.Drawing.Size(969, 374);
             this.Load += new System.EventHandler(this.grpcUserSettingsUC_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

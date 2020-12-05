@@ -1,6 +1,7 @@
 ﻿using Analogy.Interfaces;
 using System;
 using System.Threading.Tasks;
+using Analogy.LogServer;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {

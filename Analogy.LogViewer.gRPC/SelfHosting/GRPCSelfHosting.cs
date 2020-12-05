@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Drawing;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,6 +26,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
         public override Task InitializeDataProviderAsync(IAnalogyLogger logger)
         {
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             LogManager.Instance.SetLogger(logger);
             _cts = new CancellationTokenSource();
             return base.InitializeDataProviderAsync(logger);
@@ -67,15 +69,26 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureKestrel((context, options) =>
+                    webBuilder.ConfigureKestrel(options =>
+                    {
+                        options.Listen(IPAddress.Any, 7000, listenOptions =>
                         {
-                            options.Configure()
-                                .Endpoint("Https", listenOptions =>
-                                {
-                                    listenOptions.ListenOptions.Protocols = HttpProtocols.Http2;
-                                });
-                        }).UseStartup<Startup>()
-                        .UseUrls(UserSettingsManager.UserSettings.Settings.SelfHostingServerAddress);
+                            listenOptions.Protocols = HttpProtocols.Http2;
+                        });
+                    });
+                    webBuilder.UseStartup<Startup>();
+
+
+                    //webBuilder.ConfigureKestrel((context, options) =>
+                    //    {
+                    //        options.Configure()
+                    //            .Endpoint("Http", listenOptions =>
+                    //            {
+                    //                listenOptions.ListenOptions.Protocols = HttpProtocols.Http2;
+                    //            });
+                    //    })
+                    //    .UseUrls(UserSettingsManager.UserSettings.Settings.SelfHostingServerAddress)
+                    //    .UseStartup<Startup>();
                 });
 
     }

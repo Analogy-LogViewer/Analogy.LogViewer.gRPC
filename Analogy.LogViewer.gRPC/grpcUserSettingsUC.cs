@@ -14,7 +14,7 @@ namespace Analogy.LogViewer.gRPC
         private void grpcUserSettingsUC_Load(object sender, EventArgs e)
         {
             txtbRealTimeServerURL.Text = UserSettingsManager.UserSettings.Settings.GRPCAddress;
-            txtbSelfHostingServerURL.Text = UserSettingsManager.UserSettings.Settings.SelfHostingServerAddress;
+            txtbSelfHostingServerURL.Text = UserSettingsManager.UserSettings.Settings.SelfHostingServerPort.ToString();
         }
 
         private void txtbRealTimeServerURL_TextChanged(object sender, EventArgs e)
@@ -25,7 +25,10 @@ namespace Analogy.LogViewer.gRPC
 
         private void txtbSelfHostingServerURL_TextChanged(object sender, EventArgs e)
         {
-            UserSettingsManager.UserSettings.Settings.SelfHostingServerAddress = txtbSelfHostingServerURL.Text;
+            if (int.TryParse(txtbSelfHostingServerURL.Text, out int port))
+            {
+                UserSettingsManager.UserSettings.Settings.SelfHostingServerPort = port;
+            }
 
         }
     }

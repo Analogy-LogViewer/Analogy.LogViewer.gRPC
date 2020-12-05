@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
-option csharp_namespace = "Analogy.LogViewer.gRPC.SelfHosting";
+option csharp_namespace = "Analogy.LogServer";
 
 package greet;
 

@@ -1,3 +1,4 @@
+using Analogy.LogServer;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
-    public class GreeterService : Analogy.AnalogyBase
+    public class GreeterService : Analogy.LogServer.Analogy.AnalogyBase
     {
 
         private readonly GRPCLogConsumer _grpcLogConsumer;
