@@ -60,11 +60,12 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 await _semaphoreSlim.WaitAsync().ConfigureAwait(false);
                 if (pendingClients.Any())
                 {
-                    foreach ((IServerStreamWriter<AnalogyGRPCLogMessage> stream, bool add) pendingClient in
-                        pendingClients)
+                    foreach ((IServerStreamWriter<AnalogyGRPCLogMessage> stream, bool add) pendingClient in pendingClients)
                     {
                         if (pendingClient.add)
+                        {
                             clients.Add((pendingClient.stream, true));
+                        }
                         else
                         {
                             clients.RemoveAll(c => c.stream == pendingClient.stream);
