@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogServer.Clients" Version="0.4.12" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="0.4.13" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.9.0" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="1.8.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.33.1" />
