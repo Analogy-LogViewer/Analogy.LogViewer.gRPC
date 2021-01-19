@@ -16,7 +16,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.5.4.1</Version>
+		<Version>1.5.4.2</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -28,10 +28,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.4.14" />
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.9.1.1" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.9.1.2" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="1.8.1" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
-		<PackageReference Include="Grpc.Core" Version="2.34.0" />
+		<PackageReference Include="Grpc.Core" Version="2.34.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.10" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.10" />
