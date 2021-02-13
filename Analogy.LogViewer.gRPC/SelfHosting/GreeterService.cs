@@ -1,3 +1,4 @@
+#if NETCOREAPP3_1
 using Analogy.LogServer;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -125,3 +126,4 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         }
     }
 }
+#endif

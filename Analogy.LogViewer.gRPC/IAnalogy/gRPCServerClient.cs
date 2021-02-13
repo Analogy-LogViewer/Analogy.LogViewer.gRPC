@@ -27,6 +27,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         }
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
+
         public override Task StartReceiving()
         {
             consumer = new AnalogyMessageConsumer(UserSettingsManager.UserSettings.Settings.GRPCAddress);
@@ -35,6 +36,8 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             {
                 try
                 {
+
+#if NETCOREAPP3_1
                     var token = cts.Token;
                     await foreach (var message in consumer.GetMessages().WithCancellation(token))
                     {
@@ -45,6 +48,10 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
 
                         MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
                     }
+#else
+                    consumer.OnNewMessage += Consumer_OnNewMessage;
+#endif
+
                 }
                 catch (Exception e)
                 {
@@ -54,11 +61,20 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             return Task.CompletedTask;
         }
 
+        private void Consumer_OnNewMessage(object sender, AnalogyLogMessage message)
+        {
+            MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
+        }
+
         public override Task StopReceiving()
         {
             cts?.Cancel();
             Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             cts = new CancellationTokenSource();
+#if !NETCOREAPP3_1
+            consumer.OnNewMessage -= Consumer_OnNewMessage;
+
+#endif
             return consumer.Stop();
         }
     }

@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿#if NETCOREAPP3_1
+using Grpc.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,3 +56,4 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         }
     }
 }
+#endif

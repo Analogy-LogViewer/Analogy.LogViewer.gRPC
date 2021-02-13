@@ -1,4 +1,5 @@
-﻿using Analogy.Interfaces;
+﻿#if NETCOREAPP3_1
+using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.Managers;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
@@ -93,3 +94,4 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
     }
 }
+#endif
