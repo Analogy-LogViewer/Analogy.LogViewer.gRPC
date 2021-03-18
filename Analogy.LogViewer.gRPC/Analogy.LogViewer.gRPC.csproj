@@ -38,7 +38,7 @@
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
-		<PackageReference Include="Grpc.AspNetCore" Version="2.35.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.36.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.5.5" />
