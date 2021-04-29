@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: System.Resources.Extensions
+    versions:
+    - ">= 4.7.a, < 4.8"
+  - dependency-name: Grpc.Core
+    versions:
+    - 2.36.0
+    - 2.36.4
+  - dependency-name: Analogy.LogServer.Clients
+    versions:
+    - 0.5.0
+    - 0.5.4
+  - dependency-name: Grpc.AspNetCore
+    versions:
+    - 2.35.0
