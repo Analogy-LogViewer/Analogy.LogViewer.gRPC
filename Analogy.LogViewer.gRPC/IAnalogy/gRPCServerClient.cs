@@ -37,7 +37,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                 try
                 {
 
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1 || NET
                     var token = cts.Token;
                     await foreach (var message in consumer.GetMessages().WithCancellation(token))
                     {
@@ -71,7 +71,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             cts?.Cancel();
             Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             cts = new CancellationTokenSource();
-#if !NETCOREAPP3_1
+#if !NETCOREAPP3_1 && !NET
             consumer.OnNewMessage -= Consumer_OnNewMessage;
 
 #endif
