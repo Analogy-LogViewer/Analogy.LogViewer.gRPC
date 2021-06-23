@@ -16,7 +16,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.7.2</Version>
+		<Version>1.7.3</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -38,7 +38,7 @@
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'  or '$(TargetFramework)' == 'net5.0-windows' ">
-		<PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />	
+		<PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />	
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
 	</ItemGroup>
 
@@ -62,10 +62,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogServer.Clients" Version="0.6.1" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="0.6.2" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.13.0" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="1.9.1" />
-		<PackageReference Include="Grpc.Core" Version="2.37.1" />
+		<PackageReference Include="Grpc.Core" Version="2.38.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.0.0">
