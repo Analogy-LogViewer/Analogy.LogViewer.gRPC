@@ -16,7 +16,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>1.7.3</Version>
+		<Version>1.7.4</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -62,9 +62,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogServer.Clients" Version="0.6.2" />
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.13.0" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="1.9.1" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="0.6.3" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.14.1" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="1.9.3" />
 		<PackageReference Include="Grpc.Core" Version="2.38.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
