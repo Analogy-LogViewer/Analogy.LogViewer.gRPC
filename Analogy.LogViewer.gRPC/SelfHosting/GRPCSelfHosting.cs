@@ -45,6 +45,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 gRPCReporter.Instance.OnMessageReady += OnInstanceMessageReady;
                 gRPCReporter.Instance.OnDisconnected += Instance_OnDisconnected;
                 hostingTask = _hoster.StartAsync(_cts.Token);
+
             }
 
             return Task.CompletedTask;
@@ -63,6 +64,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             _cts.Cancel();
             Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             _cts = new CancellationTokenSource();
+            _hoster?.Dispose();
             return GrpcEnvironment.KillServersAsync();
         }
 
@@ -72,7 +74,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 {
                     webBuilder.ConfigureKestrel(options =>
                     {
-                        options.Listen(IPAddress.Any, 7000, listenOptions =>
+                        options.Listen(IPAddress.Any, UserSettingsManager.UserSettings.Settings.SelfHostingServerPort, listenOptions =>
                         {
                             listenOptions.Protocols = HttpProtocols.Http2;
                         });
