@@ -3,7 +3,6 @@
 <p align="center">
     
 ![.NET Core Desktop](https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/workflows/.NET%20Core%20Desktop/badge.svg)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=Analogy-LogViewer/Analogy.LogViewer.gRPC)](https://dependabot.com)
 <a href="https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/issues">
     <img src="https://img.shields.io/github/issues/Analogy-LogViewer/Analogy.LogViewer.gRPC"  alt="Issues" />
 </a>
