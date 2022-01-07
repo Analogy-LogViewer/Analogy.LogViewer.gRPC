@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net5.0-windows;net48;net471;net472;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows;net5.0-windows;netcoreapp3.1;net48;net472;net471</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<IsPackable>true</IsPackable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Copyright>Lior Banai © 2020-2021</Copyright>
+		<Copyright>Lior Banai © 2020-2022</Copyright>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
@@ -16,7 +16,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>2.0.0</Version>
+		<Version>2.0.1</Version>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -70,9 +70,9 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogServer.Clients" Version="0.7.1" />
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.15.1" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="2.0.0" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="0.7.2" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.15.2" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="2.1.0" />
 		<PackageReference Include="Grpc.Core" Version="2.43.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
