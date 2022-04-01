@@ -70,7 +70,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogServer.Clients" Version="0.7.2" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="0.8.0" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.15.2" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="2.1.0" />
 		<PackageReference Include="Grpc.Core" Version="2.45.0" />
