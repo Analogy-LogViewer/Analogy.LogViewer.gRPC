@@ -25,12 +25,12 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         public override Image? DisconnectedLargeImage { get; set; } = null;
         public override Image? DisconnectedSmallImage { get; set; } = null;
 
-        public override Task InitializeDataProviderAsync(IAnalogyLogger logger)
+        public override Task InitializeDataProvider(IAnalogyLogger logger)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             LogManager.Instance.SetLogger(logger);
             _cts = new CancellationTokenSource();
-            return base.InitializeDataProviderAsync(logger);
+            return base.InitializeDataProvider(logger);
         }
 
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);

@@ -18,11 +18,11 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
 
         private AnalogyMessageConsumer consumer;
 
-        public override Task InitializeDataProviderAsync(IAnalogyLogger logger)
+        public override Task InitializeDataProvider(IAnalogyLogger logger)
         {
             LogManager.Instance.SetLogger(logger);
             cts = new CancellationTokenSource();
-            return base.InitializeDataProviderAsync(logger);
+            return base.InitializeDataProvider(logger);
 
         }
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
