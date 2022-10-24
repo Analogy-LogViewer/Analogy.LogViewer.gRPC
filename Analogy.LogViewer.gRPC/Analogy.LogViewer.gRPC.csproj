@@ -71,7 +71,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="0.9.3" />
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="3.3.4" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="3.4.0" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="3.3.3" />
 		<PackageReference Include="Grpc.Core" Version="2.46.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
