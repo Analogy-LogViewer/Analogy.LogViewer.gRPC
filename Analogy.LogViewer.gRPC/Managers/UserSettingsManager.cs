@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using Analogy.LogViewer.Template.Managers;
 
 namespace Analogy.LogViewer.gRPC.Managers
 {

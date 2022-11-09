@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Analogy.LogViewer.Template.Managers;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
@@ -24,6 +25,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         public override Image? ConnectedSmallImage { get; set; } = null;
         public override Image? DisconnectedLargeImage { get; set; } = null;
         public override Image? DisconnectedSmallImage { get; set; } = null;
+        private bool Connected { get; set; }
 
         public override Task InitializeDataProvider(IAnalogyLogger logger)
         {
@@ -45,7 +47,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 gRPCReporter.Instance.OnMessageReady += OnInstanceMessageReady;
                 gRPCReporter.Instance.OnDisconnected += Instance_OnDisconnected;
                 hostingTask = _hoster.StartAsync(_cts.Token);
-
+                Connected = true;
             }
 
             return Task.CompletedTask;
@@ -65,7 +67,16 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             _cts = new CancellationTokenSource();
             _hoster?.Dispose();
+            Connected = false;
             return GrpcEnvironment.KillServersAsync();
+        }
+
+        public override async Task ShutDown()
+        {
+            if (Connected)
+            {
+                await StopReceiving();
+            }
         }
 
         private static IHostBuilder CreateHostBuilder() =>

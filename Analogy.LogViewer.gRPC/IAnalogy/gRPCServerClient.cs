@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Analogy.LogViewer.Template.Managers;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
@@ -17,14 +18,15 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         public override Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
 
         private AnalogyMessageConsumer consumer;
+        private bool Connected { get; set; }
 
         public override Task InitializeDataProvider(IAnalogyLogger logger)
         {
-            LogManager.Instance.SetLogger(logger);
             cts = new CancellationTokenSource();
             return base.InitializeDataProvider(logger);
 
         }
+
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
 
@@ -46,12 +48,13 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
                             break;
                         }
 
-                        MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
+                        MessageReady(this,
+                            new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
                     }
 #else
                     consumer.OnNewMessage += Consumer_OnNewMessage;
 #endif
-
+                    Connected = true;
                 }
                 catch (Exception e)
                 {
@@ -75,7 +78,17 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             consumer.OnNewMessage -= Consumer_OnNewMessage;
 
 #endif
+            Connected = false;
             return consumer.Stop();
+        }
+
+        public override async Task ShutDown()
+        {
+            if (Connected)
+
+            {
+                await StopReceiving();
+            }
         }
     }
 }
