@@ -1,5 +1,7 @@
 ﻿using Analogy.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Analogy.LogServer;
 
@@ -9,7 +11,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
     {
         public Task ConsumeLog(AnalogyGRPCLogMessage m)
         {
-            Interfaces.AnalogyLogMessage msg = new Interfaces.AnalogyLogMessage()
+            AnalogyLogMessage msg = new AnalogyLogMessage
             {
 
                 Category = m.Category,
@@ -25,12 +27,17 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 Source = m.Source,
                 Text = m.Text,
                 ThreadId = m.ThreadId,
-                User = m.User
+                User = m.User,
+                Id = string.IsNullOrEmpty(m.Id)
+                    ? Guid.NewGuid()
+                    : Guid.TryParse(m.Id, out Guid id) ? id : Guid.NewGuid(),
             };
+            msg.AdditionalInformation = new Dictionary<string, string>();
+            foreach (KeyValuePair<string, string> pair in m.AdditionalInformation)
+            {
+                msg.AdditionalInformation.Add(pair.Key, pair.Value);
+            }
 
-            msg.Id = string.IsNullOrEmpty(m.Id)
-                ? Guid.NewGuid()
-                : Guid.TryParse(m.Id, out Guid id) ? id : Guid.NewGuid();
             gRPCReporter.Instance.MessageReady(msg);
             return Task.CompletedTask;
         }
