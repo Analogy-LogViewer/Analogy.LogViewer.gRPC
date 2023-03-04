@@ -72,7 +72,7 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' or '$(TargetFramework)' == 'net471' ">
 		<PackageReference Include="PolySharp" Version="1.12.1">
