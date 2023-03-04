@@ -13,8 +13,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         {
             AnalogyLogMessage msg = new AnalogyLogMessage
             {
-
-                Category = m.Category,
                 Level = (AnalogyLogLevel)m.Level,
                 Class = (AnalogyLogClass)m.Class,
                 Date = m.Date.ToDateTime().ToLocalTime(),
@@ -32,10 +30,10 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                     ? Guid.NewGuid()
                     : Guid.TryParse(m.Id, out Guid id) ? id : Guid.NewGuid(),
             };
-            msg.AdditionalInformation = new Dictionary<string, string>();
+            msg.AddOrReplaceAdditionalProperty("Category", m.Category);
             foreach (KeyValuePair<string, string> pair in m.AdditionalInformation)
             {
-                msg.AdditionalInformation.Add(pair.Key, pair.Value);
+                msg.AddOrReplaceAdditionalProperty(pair.Key, pair.Value);
             }
 
             gRPCReporter.Instance.MessageReady(msg);
