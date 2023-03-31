@@ -40,7 +40,7 @@
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="3.8.3" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="3.8.3" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="3.8.2" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="3.8.3" />
 		<PackageReference Include="Grpc.Core" Version="2.46.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
