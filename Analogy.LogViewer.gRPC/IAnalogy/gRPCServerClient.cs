@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.LogViewer.Template.Managers;
+using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
@@ -20,7 +21,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         private AnalogyMessageConsumer consumer;
         private bool Connected { get; set; }
 
-        public override Task InitializeDataProvider(IAnalogyLogger logger)
+        public override Task InitializeDataProvider(ILogger logger)
         {
             cts = new CancellationTokenSource();
             return base.InitializeDataProvider(logger);

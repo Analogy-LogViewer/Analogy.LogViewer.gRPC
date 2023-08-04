@@ -16,7 +16,8 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<Version>3.8.3</Version>
+		<VersionPrefix>5.0.0.0</VersionPrefix>
+		<VersionSuffix></VersionSuffix>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
@@ -38,14 +39,14 @@
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="3.8.3" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="3.8.3" />
-		<PackageReference Include="Analogy.LogServer.Clients" Version="3.8.3" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="5.0.0" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="5.0.0" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="5.0.0" />
 		<PackageReference Include="Grpc.Core" Version="2.46.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 		<PackageReference Include="System.Resources.Extensions" Version="7.0.0" />

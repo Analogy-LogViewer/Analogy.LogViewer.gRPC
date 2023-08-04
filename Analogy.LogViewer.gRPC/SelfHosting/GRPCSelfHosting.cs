@@ -11,6 +11,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Analogy.LogViewer.Template.Managers;
+using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
@@ -27,7 +28,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         public override Image? DisconnectedSmallImage { get; set; } = null;
         private bool Connected { get; set; }
 
-        public override Task InitializeDataProvider(IAnalogyLogger logger)
+        public override Task InitializeDataProvider(ILogger logger)
         {
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             LogManager.Instance.SetLogger(logger);

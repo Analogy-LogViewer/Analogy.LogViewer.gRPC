@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Analogy.LogViewer.Template.Managers;
+using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.Managers
 {
@@ -29,7 +30,7 @@ namespace Analogy.LogViewer.gRPC.Managers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.Instance.LogException("Error loading user setting file", ex, "Analogy gRPC Parser");
+                    LogManager.Instance.LogError(ex, "Error loading user setting file: {error}", ex);
                     Settings = new GRPCSettings();
 
                 }

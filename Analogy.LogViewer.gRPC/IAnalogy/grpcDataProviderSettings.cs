@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Analogy.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
@@ -15,7 +16,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         public override Guid FactoryId { get; set; } = gRPCFactory.Id;
         public override Guid Id { get; set; } = new Guid("2f366d60-fe44-484a-a86c-cbf5fe51a5e5");
 
-        public override void CreateUserControl(IAnalogyLogger logger)
+        public override void CreateUserControl(ILogger logger)
         {
             DataProviderSettings = new grpcUserSettingsUC();
         }
