@@ -16,7 +16,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<VersionPrefix>5.0.3.0</VersionPrefix>
+		<VersionPrefix>5.0.3.1</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
@@ -62,8 +62,8 @@
 		<PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />	
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0-windows' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="7.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="7.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="6.0.15" />
