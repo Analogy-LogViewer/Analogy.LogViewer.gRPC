@@ -62,11 +62,11 @@
 		<PackageReference Include="Grpc.AspNetCore" Version="2.58.0" />	
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0-windows' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="7.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="7.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0-windows' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="6.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="7.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.15" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' or '$(TargetFramework)' == 'net471' ">
