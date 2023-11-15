@@ -1,17 +1,17 @@
 ﻿#if NETCOREAPP3_1 || NET
 using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.Managers;
+using Analogy.LogViewer.Template.Managers;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Drawing;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.LogViewer.Template.Managers;
-using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
@@ -22,10 +22,10 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         private Task hostingTask;
         public override string OptionalTitle { get; set; } = "gRPC Self Hosting Server";
         public override Guid Id { get; set; } = new Guid("17115A81-E53F-4C6D-9504-F0D667C2FD08");
-        public override Image? ConnectedLargeImage { get; set; } = null;
-        public override Image? ConnectedSmallImage { get; set; } = null;
-        public override Image? DisconnectedLargeImage { get; set; } = null;
-        public override Image? DisconnectedSmallImage { get; set; } = null;
+        public override Image? ConnectedLargeImage { get; set; }
+        public override Image? ConnectedSmallImage { get; set; }
+        public override Image? DisconnectedLargeImage { get; set; }
+        public override Image? DisconnectedSmallImage { get; set; }
         private bool Connected { get; set; }
 
         public override Task InitializeDataProvider(ILogger logger)
@@ -38,8 +38,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
-
-        void OnInstanceMessageReady(object s, AnalogyLogMessageArgs e) => MessageReady(s, e);
+        private void OnInstanceMessageReady(object s, AnalogyLogMessageArgs e) => MessageReady(s, e);
         public override Task StartReceiving()
         {
             if (_hoster == null)
@@ -56,7 +55,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
         private void Instance_OnDisconnected(object sender, AnalogyDataSourceDisconnectedArgs e)
         {
-
             Disconnected(sender, e);
             gRPCReporter.Instance.OnDisconnected -= Instance_OnDisconnected;
         }
@@ -93,7 +91,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                     });
                     webBuilder.UseStartup<Startup>();
 
-
                     //webBuilder.ConfigureKestrel((context, options) =>
                     //    {
                     //        options.Configure()
@@ -105,7 +102,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                     //    .UseUrls(UserSettingsManager.UserSettings.Settings.SelfHostingServerAddress)
                     //    .UseStartup<Startup>();
                 });
-
     }
 }
 #endif

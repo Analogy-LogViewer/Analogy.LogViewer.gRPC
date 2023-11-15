@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Analogy.LogServer;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Analogy.LogServer;
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
     public class MessagesContainer
@@ -75,7 +75,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 _semaphoreSlim.Release();
             }
         }
-
 
         public void Stop()
         {

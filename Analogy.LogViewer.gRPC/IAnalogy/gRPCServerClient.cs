@@ -2,12 +2,11 @@
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Analogy.LogViewer.Template.Managers;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
@@ -25,11 +24,9 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
         {
             cts = new CancellationTokenSource();
             return base.InitializeDataProvider(logger);
-
         }
 
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
-
 
         public override Task StartReceiving()
         {
@@ -39,7 +36,6 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             {
                 try
                 {
-
 #if NETCOREAPP3_1 || NET
                     var token = cts.Token;
                     await foreach (var message in consumer.GetMessages().WithCancellation(token))

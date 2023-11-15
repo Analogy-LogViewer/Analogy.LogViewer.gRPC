@@ -1,10 +1,9 @@
 ﻿using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Analogy.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {

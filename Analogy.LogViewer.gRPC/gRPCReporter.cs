@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Analogy.Interfaces;
+﻿using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.IAnalogy;
+using System;
 
 namespace Analogy.LogViewer.gRPC
 {
@@ -18,6 +15,5 @@ namespace Analogy.LogViewer.gRPC
         public event EventHandler<AnalogyLogMessagesArgs> OnManyMessagesReady;
 
         public void MessageReady(Interfaces.AnalogyLogMessage m) => OnMessageReady?.Invoke(this, new AnalogyLogMessageArgs(m, Environment.MachineName, "", gRPCFactory.Id));
-
     }
 }

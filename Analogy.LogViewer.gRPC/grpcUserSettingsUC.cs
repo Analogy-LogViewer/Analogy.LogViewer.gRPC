@@ -20,7 +20,6 @@ namespace Analogy.LogViewer.gRPC
         private void txtbRealTimeServerURL_TextChanged(object sender, EventArgs e)
         {
             UserSettingsManager.UserSettings.Settings.GRPCAddress = txtbRealTimeServerURL.Text;
-
         }
 
         private void txtbSelfHostingServerURL_TextChanged(object sender, EventArgs e)
@@ -29,7 +28,6 @@ namespace Analogy.LogViewer.gRPC
             {
                 UserSettingsManager.UserSettings.Settings.SelfHostingServerPort = port;
             }
-
         }
     }
 }

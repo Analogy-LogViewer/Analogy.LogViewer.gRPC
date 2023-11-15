@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Versioning;
-using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {

@@ -1,20 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-
+    <TargetFramework>net8.0-windows</TargetFramework>
     <IsPackable>false</IsPackable>
-
-    <Copyright>Lior Banai @ 2020</Copyright>
-
+    <Copyright>Lior Banai @ 2020-2024</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-
     <PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
-
     <RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
-
     <PackageIcon>Analogy.gRPC2.png</PackageIcon>
-
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 

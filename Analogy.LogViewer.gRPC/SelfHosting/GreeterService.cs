@@ -13,7 +13,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 {
     public class GreeterService : Analogy.LogServer.Analogy.AnalogyBase
     {
-
         private readonly GRPCLogConsumer _grpcLogConsumer;
         private ILogger<GreeterService> Logger { get; }
         private MessagesContainer MessageContainer { get; }
@@ -60,15 +59,9 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
                 ProcessId = Process.GetCurrentProcess().Id,
                 Source = "Server Operations",
                 ThreadId = Thread.CurrentThread.ManagedThreadId,
-                User = Environment.UserName
-
+                User = Environment.UserName,
             });
-            //var oldMessages = await MessageHistoryContainer.GetOldMessages().ConfigureAwait(false);
-            //if (oldMessages.Any())
-            //{
-            //    await responseStream.WriteAllAsync(oldMessages);
-            //}
-
+            
             try
             {
                 await AwaitCancellation(context.CancellationToken);
@@ -112,7 +105,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             }
             catch (Exception e)
             {
-
                 Logger.LogError($"Error: {e.Message}. Peer: {serverCallContext.Peer}");
             }
         }
@@ -122,7 +114,6 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             var completion = new TaskCompletionSource<object>();
             token.Register(() => { completion.SetResult(null); });
             return completion.Task;
-
         }
     }
 }

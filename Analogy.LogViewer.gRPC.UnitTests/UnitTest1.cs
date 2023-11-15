@@ -1,9 +1,9 @@
-using System;
-using System.Threading.Tasks;
 using Analogy.Interfaces;
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.IAnalogy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.UnitTests
 {
