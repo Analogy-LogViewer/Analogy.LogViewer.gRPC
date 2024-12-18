@@ -5,7 +5,7 @@
 		<Copyright>Lior Banai 2020-2025</Copyright>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
-		<VersionPrefix>7.1.0</VersionPrefix>
+		<VersionPrefix>7.2.0</VersionPrefix>
 		<IsPackable>true</IsPackable>
 		<VersionSuffix></VersionSuffix>
 		<Authors>Lior Banai</Authors>
@@ -27,9 +27,9 @@
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="7.1.0" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="7.1.0" />
-		<PackageReference Include="Analogy.LogServer.Clients" Version="7.1.0" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="7.2.0" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="7.2.0" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="7.2.0" />
 		<PackageReference Include="Grpc.Core" Version="2.46.6" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
@@ -39,7 +39,7 @@
 		<PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' or '$(TargetFramework)' == 'net9.0-windows' ">
-		<PackageReference Include="Grpc.AspNetCore" Version="2.66.0" />	
+		<PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />	
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
 		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="9.0.0" />
