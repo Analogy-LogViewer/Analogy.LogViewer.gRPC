@@ -14,7 +14,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             {
                 Level = (AnalogyLogLevel)m.Level,
                 Class = (AnalogyLogClass)m.Class,
-                Date = m.Date.ToDateTime().ToLocalTime(),
+                Date = m.Date.ToDateTimeOffset(),
                 FileName = m.FileName,
                 LineNumber = m.LineNumber,
                 MachineName = m.MachineName,
