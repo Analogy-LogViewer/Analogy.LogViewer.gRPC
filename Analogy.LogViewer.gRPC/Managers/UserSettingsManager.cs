@@ -1,6 +1,5 @@
 ﻿using Analogy.LogViewer.Template.Managers;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.IO;
 
@@ -20,12 +19,8 @@ namespace Analogy.LogViewer.gRPC.Managers
             {
                 try
                 {
-                    var settings = new JsonSerializerSettings
-                    {
-                        ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    };
                     string data = File.ReadAllText(GRPCFileSetting);
-                    Settings = JsonConvert.DeserializeObject<GRPCSettings>(data, settings);
+                    Settings = System.Text.Json.JsonSerializer.Deserialize<GRPCSettings>(data);
                 }
                 catch (Exception ex)
                 {
@@ -42,11 +37,11 @@ namespace Analogy.LogViewer.gRPC.Managers
         {
             try
             {
-                File.WriteAllText(GRPCFileSetting, JsonConvert.SerializeObject(Settings));
+                File.WriteAllText(GRPCFileSetting, System.Text.Json.JsonSerializer.Serialize(Settings));
             }
             catch (Exception ex)
             {
-                LogManager.Instance.LogCritical("", $"Unable to save file {GRPCFileSetting}: {ex}");
+                LogManager.Instance.LogCritical($"Unable to save file {GRPCFileSetting}: {ex}");
             }
         }
     }
