@@ -17,9 +17,9 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
 
         public override IEnumerable<IAnalogyChangeLog> ChangeLog { get; set; } = new List<AnalogyChangeLog>
         {
-            new AnalogyChangeLog("Add Self hosting of Analogy Log Server #46", AnalogChangeLogType.Improvement,
+            new AnalogyChangeLog("Add Self hosting of Analogy Log Server #46", Interfaces.DataTypes.AnalogChangeLogType.Improvement,
                 "Lior Banai", new DateTime(2020, 12, 5), ""),
-            new AnalogyChangeLog("Initial version", AnalogChangeLogType.None, "Lior Banai",
+            new AnalogyChangeLog("Initial version", Interfaces.DataTypes.AnalogChangeLogType.None, "Lior Banai",
                 new DateTime(2020, 08, 12), ""),
         };
         public override IEnumerable<string> Contributors { get; set; } = new List<string> { "Lior Banai" };

@@ -1,4 +1,5 @@
 ﻿using Analogy.Interfaces;
+using Analogy.Interfaces.DataTypes;
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template;
@@ -61,7 +62,7 @@ namespace Analogy.LogViewer.gRPC.IAnalogy
             return Task.CompletedTask;
         }
 
-        private void Consumer_OnNewMessage(object sender, AnalogyLogMessage message)
+        private void Consumer_OnNewMessage(object sender, Interfaces.DataTypes.AnalogyLogMessage message)
         {
             MessageReady(this, new AnalogyLogMessageArgs(message, Environment.MachineName, OptionalTitle, Id));
         }

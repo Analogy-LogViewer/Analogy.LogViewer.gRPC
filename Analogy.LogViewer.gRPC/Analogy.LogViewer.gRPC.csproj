@@ -5,7 +5,8 @@
 		<Copyright>Lior Banai 2020-2025</Copyright>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
-		<VersionPrefix>8.1.0</VersionPrefix>
+		<VersionPrefix>9.0.0</VersionPrefix>
+		<VersionSuffix>rc1</VersionSuffix>
 		<IsPackable>true</IsPackable>
 		<VersionSuffix></VersionSuffix>
 		<Authors>Lior Banai</Authors>
@@ -27,25 +28,25 @@
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.1.0" />
-		<PackageReference Include="Analogy.LogViewer.Template" Version="8.1.0" />
-		<PackageReference Include="Analogy.LogServer.Clients" Version="8.1.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.4" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
-		<PackageReference Include="System.Resources.Extensions" Version="9.0.4" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="9.0.0-rc2" />
+		<PackageReference Include="Analogy.LogViewer.Template" Version="9.0.0-rc4" />
+		<PackageReference Include="Analogy.LogServer.Clients" Version="9.0.0-rc1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
+		<PackageReference Include="System.Resources.Extensions" Version="9.0.10" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' or '$(TargetFramework)' == 'net9.0-windows' ">
-		<PackageReference Include="Grpc.AspNetCore" Version="2.70.0" />	
+		<PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />	
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0-windows' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="9.0.4" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="9.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.10" />
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0-windows' ">
-		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="8.0.15" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Hosting.WindowsServices" Version="8.0.21" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.21" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Properties\Resources.Designer.cs">

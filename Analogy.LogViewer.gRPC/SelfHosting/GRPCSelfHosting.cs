@@ -1,5 +1,5 @@
-﻿#if NETCOREAPP3_1 || NET
-using Analogy.Interfaces;
+﻿using Analogy.Interfaces;
+#if NETCOREAPP3_1 || NET
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template.Managers;
 using Grpc.Core;
@@ -38,7 +38,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
 
         public override async Task<bool> CanStartReceiving() => await Task.FromResult(true);
 
-        private void OnInstanceMessageReady(object s, AnalogyLogMessageArgs e) => MessageReady(s, e);
+        private void OnInstanceMessageReady(object s, Analogy.Interfaces.DataTypes.AnalogyLogMessageArgs e) => MessageReady(s, e);
         public override Task StartReceiving()
         {
             if (_hoster == null)
@@ -53,7 +53,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
             return Task.CompletedTask;
         }
 
-        private void Instance_OnDisconnected(object sender, AnalogyDataSourceDisconnectedArgs e)
+        private void Instance_OnDisconnected(object sender, Analogy.Interfaces.DataTypes.AnalogyDataSourceDisconnectedArgs e)
         {
             Disconnected(sender, e);
             gRPCReporter.Instance.OnDisconnected -= Instance_OnDisconnected;
@@ -63,7 +63,7 @@ namespace Analogy.LogViewer.gRPC.SelfHosting
         {
             gRPCReporter.Instance.OnMessageReady -= OnInstanceMessageReady;
             _cts.Cancel();
-            Disconnected(this, new AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
+            Disconnected(this, new Analogy.Interfaces.DataTypes.AnalogyDataSourceDisconnectedArgs("user disconnected", Environment.MachineName, Id));
             _cts = new CancellationTokenSource();
             _hoster?.Dispose();
             Connected = false;
