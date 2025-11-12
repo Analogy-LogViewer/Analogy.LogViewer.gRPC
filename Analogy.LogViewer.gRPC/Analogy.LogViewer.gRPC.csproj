@@ -2,18 +2,23 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-windows;net8.0-windows;net48</TargetFrameworks>
-		<Copyright>Lior Banai 2020-2025</Copyright>
+		<VersionPrefix>9.0.0</VersionPrefix>
+		<VersionSuffix>rc1</VersionSuffix>
+		<IsPackable>true</IsPackable>
+		<Description>gRPC Real Time Receiver for Analogy Log Viewer</Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<AssemblyName>Analogy.LogViewer.gRPC</AssemblyName>
+		<RootNamespace>Analogy.LogViewer.gRPC</RootNamespace>
+		<PackageId>Analogy.LogViewer.gRPC</PackageId>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Lior Banai</Authors>
+		<Copyright>Lior Banai 2020-2026</Copyright>
+		<Company>Analogy.LogViewer</Company>
+		<NeutralLanguage>en-US</NeutralLanguage>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC</PackageProjectUrl>
-		<VersionPrefix>9.0.0</VersionPrefix>
-		<VersionSuffix>rc2</VersionSuffix>
-		<IsPackable>true</IsPackable>
-		<VersionSuffix></VersionSuffix>
-		<Authors>Lior Banai</Authors>
-		<Company>Analogy.LogViewer</Company>
 		<OutputType>Library</OutputType>
 		<PackageIcon>Analogy.gRPC2.png</PackageIcon>
-		<Description>gRPC Real Time Receiver for Analogy Log Viewer</Description>
 	</PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
 		<Reference Include="System.ComponentModel.DataAnnotations" />
