@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCFactory : PrimaryFactory
+    public class gRPCFactory : PrimaryFactoryWinForms
     {
         internal static readonly Guid Id = new Guid("9bd37cc2-daa7-4d17-974c-01ef3f3c79ba");
 
