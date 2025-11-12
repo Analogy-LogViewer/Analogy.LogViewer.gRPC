@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
-    public class GRPCSelfHosting : Template.OnlineDataProvider
+    public class GRPCSelfHosting : Template.OnlineDataProviderWinForms
     {
         private static CancellationTokenSource _cts;
         private IHost? _hoster;

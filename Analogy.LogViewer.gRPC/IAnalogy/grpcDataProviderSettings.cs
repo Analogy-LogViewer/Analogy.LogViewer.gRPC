@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class grpcDataProviderSettings : TemplateUserSettingsFactory
+    public class grpcDataProviderSettings : TemplateUserSettingsFactoryWinForms
     {
         public override string Title { get; set; } = "gRPC settings";
         public override UserControl DataProviderSettings { get; set; }

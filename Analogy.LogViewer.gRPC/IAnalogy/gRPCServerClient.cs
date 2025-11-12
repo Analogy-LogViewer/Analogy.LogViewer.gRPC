@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.IAnalogy
 {
-    public class gRPCServerClient : OnlineDataProvider
+    public class gRPCServerClient : OnlineDataProviderWinForms
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
