@@ -4,6 +4,7 @@ using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template;
 using Analogy.LogViewer.Template.Managers;
+using Analogy.LogViewer.Template.WinForms;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;

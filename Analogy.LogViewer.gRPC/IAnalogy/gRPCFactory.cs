@@ -1,6 +1,7 @@
 ﻿using Analogy.Interfaces;
 using Analogy.LogViewer.gRPC.Properties;
 using Analogy.LogViewer.Template;
+using Analogy.LogViewer.Template.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

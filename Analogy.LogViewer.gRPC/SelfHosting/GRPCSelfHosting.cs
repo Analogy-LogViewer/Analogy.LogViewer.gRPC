@@ -2,6 +2,7 @@
 #if NETCOREAPP3_1 || NET
 using Analogy.LogViewer.gRPC.Managers;
 using Analogy.LogViewer.Template.Managers;
+using Analogy.LogViewer.Template.WinForms;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
-    public class GRPCSelfHosting : Template.OnlineDataProviderWinForms
+    public class GRPCSelfHosting : OnlineDataProviderWinForms
     {
         private static CancellationTokenSource _cts;
         private IHost? _hoster;
