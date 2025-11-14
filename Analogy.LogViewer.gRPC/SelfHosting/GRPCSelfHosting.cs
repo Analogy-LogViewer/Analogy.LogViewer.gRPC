@@ -1,8 +1,8 @@
 ﻿using Analogy.Interfaces;
 #if NETCOREAPP3_1 || NET
 using Analogy.LogViewer.gRPC.Managers;
+using Analogy.LogViewer.Template;
 using Analogy.LogViewer.Template.Managers;
-using Analogy.LogViewer.Template.WinForms;
 using Grpc.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -16,17 +16,13 @@ using System.Threading.Tasks;
 
 namespace Analogy.LogViewer.gRPC.SelfHosting
 {
-    public class GRPCSelfHosting : OnlineDataProviderWinForms
+    public class GRPCSelfHosting : OnlineDataProvider
     {
         private static CancellationTokenSource _cts;
         private IHost? _hoster;
         private Task hostingTask;
         public override string OptionalTitle { get; set; } = "gRPC Self Hosting Server";
         public override Guid Id { get; set; } = new Guid("17115A81-E53F-4C6D-9504-F0D667C2FD08");
-        public override Image? ConnectedLargeImage { get; set; }
-        public override Image? ConnectedSmallImage { get; set; }
-        public override Image? DisconnectedLargeImage { get; set; }
-        public override Image? DisconnectedSmallImage { get; set; }
         private bool Connected { get; set; }
 
         public override Task InitializeDataProvider(ILogger logger)

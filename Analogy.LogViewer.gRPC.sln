@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11205.157 d18.0
+VisualStudioVersion = 18.0.11205.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Analogy.LogViewer.gRPC", "Analogy.LogViewer.gRPC\Analogy.LogViewer.gRPC.csproj", "{11CE2625-CBEF-4D3C-B61D-6B63ACA8CC84}"
 EndProject
@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analogy.LogViewer.gRPC.WinForms", "Analogy.LogViewer.gRPC.WinForms\Analogy.LogViewer.gRPC.WinForms.csproj", "{6822941E-A5E1-8396-5C36-222B9E0943FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{11CE2625-CBEF-4D3C-B61D-6B63ACA8CC84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD56141D-255C-4EB4-B774-E2440F873903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD56141D-255C-4EB4-B774-E2440F873903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6822941E-A5E1-8396-5C36-222B9E0943FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6822941E-A5E1-8396-5C36-222B9E0943FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6822941E-A5E1-8396-5C36-222B9E0943FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6822941E-A5E1-8396-5C36-222B9E0943FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

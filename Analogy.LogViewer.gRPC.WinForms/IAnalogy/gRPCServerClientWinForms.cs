@@ -1,16 +1,17 @@
 ﻿using Analogy.Interfaces.DataTypes;
 using Analogy.LogServer.Clients;
+using Analogy.LogViewer.gRPC.IAnalogy;
 using Analogy.LogViewer.gRPC.Managers;
-using Analogy.LogViewer.Template;
 using Analogy.LogViewer.Template.Managers;
+using Analogy.LogViewer.Template.WinForms;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Analogy.LogViewer.gRPC.IAnalogy
+namespace Analogy.LogViewer.gRPC.WinForms
 {
-    public class gRPCServerClient : OnlineDataProvider
+    public class gRPCServerClientWinForms : OnlineDataProviderWinForms
     {
         private static CancellationTokenSource cts;
         private Task hostingTask;
