@@ -1,7 +1,9 @@
 ﻿using Analogy.Interfaces.DataTypes;
+using Analogy.Interfaces.WinForms.DataTypes;
 using Analogy.LogServer.Clients;
 using Analogy.LogViewer.gRPC.IAnalogy;
 using Analogy.LogViewer.gRPC.Managers;
+using Analogy.LogViewer.gRPC.WinForms.Properties;
 using Analogy.LogViewer.Template.Managers;
 using Analogy.LogViewer.Template.WinForms;
 using Microsoft.Extensions.Logging;
@@ -20,6 +22,7 @@ namespace Analogy.LogViewer.gRPC.WinForms
 
         private AnalogyMessageConsumer consumer;
         private bool Connected { get; set; }
+        public override AnalogyToolTipWinForms? ToolTip { get; set; } = new AnalogyToolTipWinForms("Grpc Server Data Provider", "", "", Resources.gRPC16x16, Resources.gRPC32x32);
 
         public override Task InitializeDataProvider(ILogger logger)
         {
