@@ -19,10 +19,10 @@ namespace Analogy.LogViewer.gRPC.WinForms
         private Task hostingTask;
         public override string OptionalTitle { get; set; } = "Connect to gRPC Log Server";
         public override Guid Id { get; set; } = new Guid("F766707C-4FF8-4DC0-99BF-13D080266DF6");
-
+        
         private AnalogyMessageConsumer consumer;
         private bool Connected { get; set; }
-        public override AnalogyToolTipWinForms? ToolTip { get; set; } = new AnalogyToolTipWinForms("Grpc Server Data Provider", "", "", Resources.gRPC16x16, Resources.gRPC32x32);
+        public override AnalogyToolTip ToolTip { get; set; } = new AnalogyToolTipWithImages("Grpc Server Data Provider", "", "", Resources.gRPC16x16, Resources.gRPC32x32);
 
         public override Task InitializeDataProvider(ILogger logger)
         {
