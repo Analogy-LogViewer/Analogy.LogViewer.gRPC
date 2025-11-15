@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-windows;net9.0-windows;net8.0-windows;net48</TargetFrameworks>
-		<VersionPrefix>9.0.2</VersionPrefix>
+		<VersionPrefix>9.0.3</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<IsPackable>true</IsPackable>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -35,7 +35,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Analogy.LogServer.Clients" Version="9.0.2" />
-		<PackageReference Include="Analogy.LogViewer.gRPC" Version="9.0.0" />
+		<PackageReference Include="Analogy.LogViewer.gRPC" Version="9.0.1" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="9.0.2" />
 		<PackageReference Include="Analogy.LogViewer.Interfaces.WinForms" Version="9.0.3" />
 		<PackageReference Include="Analogy.LogViewer.Template" Version="9.0.3" />
