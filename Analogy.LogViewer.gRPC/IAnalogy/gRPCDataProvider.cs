@@ -1,5 +1,4 @@
 ﻿using Analogy.Interfaces;
-using Analogy.LogViewer.gRPC.SelfHosting;
 using Analogy.LogViewer.Template;
 using System;
 using System.Collections.Generic;
