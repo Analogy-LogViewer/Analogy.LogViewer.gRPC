@@ -33,7 +33,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v5.3.0
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: 10.0.x  
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
@@ -44,18 +44,19 @@ jobs:
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+    
     # Buid the application 
     - name: Build the application
       run: msbuild $env:Solution_Name /t:Rebuild /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}
+    # Execute all unit tests in the solution
+    - name: Execute unit tests
+      run: dotnet test
 
     # Publish Artifacts 
     - name: 'Publish Artifacts'   
-      uses: actions/upload-artifact@v4.4.3
+      uses: actions/upload-artifact@v5.0.0
       with:
        name: artifactory_${{ matrix.configuration }}
        path: ./
