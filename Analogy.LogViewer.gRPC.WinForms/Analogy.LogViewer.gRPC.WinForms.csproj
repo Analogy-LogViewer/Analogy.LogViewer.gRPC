@@ -3,7 +3,6 @@
 		<TargetFrameworks>net10.0-windows;net9.0-windows;net8.0-windows;net48</TargetFrameworks>
 		<VersionPrefix>9.0.5</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
-		<IsPackable>true</IsPackable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<Description>gRPC Real Time Receiver for Analogy Log Viewer</Description>
 		<PackageReleaseNotes></PackageReleaseNotes>
