@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-windows;net9.0-windows;net10.0-windows;net48</TargetFrameworks>
+		<TargetFrameworks>net10.0-windows;net9.0-windows;net8.0-windows;net48</TargetFrameworks>
 		<VersionPrefix>9.0.5</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<IsPackable>true</IsPackable>
