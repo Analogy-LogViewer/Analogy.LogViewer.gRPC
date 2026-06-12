@@ -1,14 +1,14 @@
 <Project>
 	<PropertyGroup>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<IncludeSymbols>True</IncludeSymbols>
+		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<RepositoryType>git</RepositoryType>
 		<DebugType>portable</DebugType>
 	</PropertyGroup>
