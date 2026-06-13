@@ -24,7 +24,7 @@ jobs:
       Test_Project_Path: Analogy.LogViewer.gRPC.UnitTests\Analogy.LogViewer.gRPC.UnitTests.csproj 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
         persist-credentials: false
