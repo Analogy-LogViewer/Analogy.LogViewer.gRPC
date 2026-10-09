@@ -1,0 +1,32 @@
+<Project>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageVersion Include="Analogy.LogServer.Clients" Version="9.0.6" />
+		<PackageVersion Include="Analogy.LogViewer.gRPC" Version="9.0.7" />
+		<PackageVersion Include="Analogy.LogViewer.Interfaces" Version="9.0.6" />
+		<PackageVersion Include="Analogy.LogViewer.Interfaces.WinForms" Version="9.0.6" />
+		<PackageVersion Include="Analogy.LogViewer.Template" Version="9.0.6" />
+		<PackageVersion Include="Analogy.LogViewer.Template.WinForms" Version="9.0.6" />
+		<PackageVersion Include="coverlet.collector" Version="10.0.1" />
+		<PackageVersion Include="Grpc.AspNetCore" Version="2.80.0" />
+		<PackageVersion Include="Meziantou.Analyzer" Version="3.0.139" />
+		<PackageVersion Include="Meziantou.Polyfill" Version="1.0.165" />
+		<PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="5.6.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="5.6.0" />
+		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
+		<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.10" />
+		<PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.10" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.300" />
+		<PackageVersion Include="MSTest.TestAdapter" Version="4.3.3" />
+		<PackageVersion Include="MSTest.TestFramework" Version="4.3.3" />
+		<PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
+		<PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
+		<PackageVersion Include="System.Resources.Extensions" Version="10.0.9" />
+	</ItemGroup>
+</Project>
